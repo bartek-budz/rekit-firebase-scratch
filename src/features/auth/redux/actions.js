@@ -1,0 +1,1 @@
+export { setGlobalState } from './setGlobalState';
