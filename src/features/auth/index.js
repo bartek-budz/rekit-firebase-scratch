@@ -1,4 +1,5 @@
-export { default as DefaultPage } from './DefaultPage';
-export { default as Login } from './Login';
-export { default as Register } from './Register';
-export { default as ResetPassword } from './ResetPassword';
+export { default as SignInForm } from './SignInForm';
+export { default as SignUpForm } from './SignUpForm';
+export { default as ResetPasswordForm } from './ResetPasswordForm';
+export { default as RestrictedContent } from './RestrictedContent';
+export { default as SignOutButton } from './SignOutButton';

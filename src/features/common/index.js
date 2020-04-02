@@ -1,1 +1,2 @@
-export { default as PageNotFound } from './PageNotFound';
+export { PageNotFound } from './PageNotFound';
+export { default as PopUp } from './PopUp';

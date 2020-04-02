@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import { SignOutButton, RestrictedContent } from '../auth';
 
-export class DefaultPage extends Component {
+export class Home extends Component {
   static propTypes = {
-    auth: PropTypes.object.isRequired,
+    home: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
 
   render() {
     return (
-      <div className="auth-default-page">
-        Page Content: auth/DefaultPage
+      <div className="home-home">     
+        <RestrictedContent>
+          <div className="screen-center">
+            <SignOutButton />      
+          </div>         
+        </RestrictedContent>
       </div>
     );
   }
@@ -22,7 +27,7 @@ export class DefaultPage extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    home: state.home,
   };
 }
 
@@ -36,4 +41,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DefaultPage);
+)(Home);

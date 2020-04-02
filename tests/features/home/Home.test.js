@@ -1,19 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { DefaultPage } from '../../../src/features/auth/DefaultPage';
+import { Home } from '../../../src/features/home/Home';
 
-describe('auth/DefaultPage', () => {
+describe('home/Home', () => {
   it('renders node with correct class name', () => {
     const props = {
-      auth: {},
+      home: {},
       actions: {},
     };
     const renderedComponent = shallow(
-      <DefaultPage {...props} />
+      <Home {...props} />
     );
 
     expect(
-      renderedComponent.find('.auth-default-page').length
+      renderedComponent.find('.home-home').length
     ).toBe(1);
   });
 });
