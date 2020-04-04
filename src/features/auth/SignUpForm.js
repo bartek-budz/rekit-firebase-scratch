@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import {Button, Form, Spinner } from 'react-bootstrap';
+import { withTranslation } from 'react-i18next';
 import { PopUp } from '../common';
 import { isValidEmail, validatePassword, getPasswordValidationMessage } from './utils.js';
 
@@ -162,4 +163,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignUpForm);
+)(withTranslation()(SignUpForm));

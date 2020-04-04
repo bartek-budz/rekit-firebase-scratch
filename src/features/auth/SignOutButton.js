@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import { withTranslation } from 'react-i18next';
 import { Button, Spinner } from 'react-bootstrap';
 import { PopUp } from '../common';
 
@@ -53,4 +54,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignOutButton);
+)(withTranslation()(SignOutButton));

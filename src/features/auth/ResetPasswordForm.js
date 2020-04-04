@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import { withTranslation } from 'react-i18next';
 import {Button, Form } from 'react-bootstrap';
 
 export class ResetPasswordForm extends Component {
@@ -54,4 +55,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ResetPasswordForm);
+)(withTranslation()(ResetPasswordForm));

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import { SignInForm, SignUpForm, ResetPasswordForm } from '.';
+import { AuthDialog, SignInForm, SignUpForm, ResetPasswordForm } from '.';
+import { Trans, withTranslation } from 'react-i18next';
 
 const SCREEN_SIGN_IN = 'singIn'
 const SCREEN_SING_UP = 'signUp'
@@ -38,24 +39,32 @@ export class RestrictedContent extends Component {
     return (
       <div className="auth-restricted-content">
         {currentScreen === SCREEN_SIGN_IN &&
-        <div className="screen-center">
+        <AuthDialog>
           <SignInForm />
-          <p>Forgot password? <a href={linkToScreen(SCREEN_RESET_PASSWORD)} onClick={switchScreen(SCREEN_RESET_PASSWORD)}>Reset</a></p>
-          <p>Don't have an account? <a href={linkToScreen(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a></p>        
-        </div>
+          <p className="link">
+            <Trans ns="auth" i18nKey="signInForm.links.reset">
+              Forgot password? <a href={linkToScreen(SCREEN_RESET_PASSWORD)} onClick={switchScreen(SCREEN_RESET_PASSWORD)}>Reset</a>
+            </Trans>
+          </p> 
+          <p className="link">
+            <Trans ns="auth" i18nKey="signInForm.links.signUp">
+              Don't have an account? <a href={linkToScreen(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a>
+            </Trans>
+          </p>
+        </AuthDialog>
         }      
         {currentScreen === SCREEN_SING_UP &&
-        <div className="screen-center">
+        <AuthDialog>
           <SignUpForm />
           <p>Already have an account? <a href={linkToScreen(SCREEN_SIGN_IN)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a></p>        
-        </div>
+        </AuthDialog>
         }
         {currentScreen === SCREEN_RESET_PASSWORD &&
-        <div className="screen-center">
+        <AuthDialog>
           <ResetPasswordForm />
           <p>Remember password? <a href={linkToScreen(SCREEN_RESET_PASSWORD)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a></p>
           <p>Don't have an account? <a href={linkToScreen(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a></p>        
-        </div>
+        </AuthDialog>
         }
         {signedIn && this.props.children}    
       </div>      
@@ -80,4 +89,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RestrictedContent);
+)(withTranslation()(RestrictedContent));

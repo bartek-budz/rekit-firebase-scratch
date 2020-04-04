@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import { withTranslation } from 'react-i18next';
 import {Button, Form, Spinner } from 'react-bootstrap';
 import { PopUp } from '../common';
 
@@ -13,6 +14,7 @@ export class SignInForm extends Component {
   };
 
   render() {
+    const t = this.props.t
     const {email, signInPending, signInError} = this.props.auth // todo: on email change update global state
     const {signIn, dismissSignInError} = this.props.actions
     const locked = signInPending
@@ -37,23 +39,23 @@ export class SignInForm extends Component {
         <Form onSubmit={onFormSubmit}>     
 
           <Form.Group controlId="email">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>{t('auth:signInForm.email.label')}</Form.Label>
             <Form.Control 
               type="email"
-              placeholder="Enter email"
+              placeholder={t('auth:signInForm.email.placeholder')}
               defaultValue={email}
               disabled={locked}
               required />
             <Form.Text className="text-muted">
-              Your email address is your login
+              {t('auth:signInForm.email.description')}
             </Form.Text>
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{t('auth:signInForm.password.label')}</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Enter password"
+              placeholder={t('auth:signInForm.password.placeholder')}
               disabled={locked}
               required />
           </Form.Group>
@@ -61,7 +63,7 @@ export class SignInForm extends Component {
           <Form.Group controlId="remember">
             <Form.Check 
               type="checkbox"
-              label="Remember me"
+              label={t('auth:signInForm.remember.label')}
               disabled={locked}
             />
           </Form.Group>
@@ -75,7 +77,7 @@ export class SignInForm extends Component {
               aria-hidden="true"
             />
             }
-            { signInPending ? ' Signing in...' : 'Sign in'}                  
+            { signInPending ? ' ' + t('auth:signInForm.signIn.pending') : t('auth:signInForm.signIn.default')}                  
           </Button>    
                         
         </Form> 
@@ -101,4 +103,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignInForm);
+)(withTranslation()(SignInForm));
