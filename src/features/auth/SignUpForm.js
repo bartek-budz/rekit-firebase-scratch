@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import {Button, Form, Spinner } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
+import { EmailControl } from '.';
 import { PopUp } from '../common';
-import { isValidEmail, validatePassword, getPasswordValidationMessage } from './utils.js';
+import { validatePassword, getPasswordValidationMessage } from './utils.js';
 
 export class SignUpForm extends Component {
   static propTypes = {
@@ -15,7 +16,6 @@ export class SignUpForm extends Component {
   };
 
   state = {
-    email: this.props.auth.email,
     password: '',
     confirmation: '',
     agreement: false,
@@ -25,17 +25,9 @@ export class SignUpForm extends Component {
     const localState = this.state
     const globalState = this.props.auth
     const {signUpPending, signUpError} = globalState
-    const {setState, signUp, dismissSignUpError} = this.props.actions
+    const {signUp, dismissSignUpError} = this.props.actions
     const locked = signUpPending
     
-    const onEmailChange = (event) => {
-      const email = event.target.value
-      const isEmailValid = isValidEmail(email)
-      const emailValidationMessage = isEmailValid ? null : t('email.feedback')
-      this.setState({email, isEmailValid, emailValidationMessage})
-      setState({email})
-    }
-
     const onPasswordChange = (event) => {
       const oldValue = localState.password
       const newValue = event.target.value
@@ -63,7 +55,7 @@ export class SignUpForm extends Component {
       event.preventDefault();
       if (event.currentTarget.checkValidity()) {        
         console.debug(localState)
-        signUp(localState.email, localState.password)
+        signUp(globalState.email, localState.password)
       }
       else {
         event.stopPropagation();   
@@ -87,19 +79,7 @@ export class SignUpForm extends Component {
           onClose={dismissSignUpError} />
         <Form onSubmit={onSubmit}>
 
-          <Form.Group controlId="email">
-            <Form.Label>{t('email.label')}</Form.Label>
-            <Form.Control 
-              type="email"
-              placeholder={t('email.placeholder')}
-              defaultValue={localState.email}
-              onChange={onEmailChange}                    
-              isValid={localState.isEmailValid === true}
-              isInvalid={localState.isEmailValid === false}
-              disabled={locked}
-              required/>                  
-            <Form.Control.Feedback type="invalid">{localState.emailValidationMessage}</Form.Control.Feedback>      
-          </Form.Group>
+          <EmailControl controlId="email" disabled={locked}/>
 
           <Form.Group controlId="password">
             <Form.Label>{t('password.label')}</Form.Label>

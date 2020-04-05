@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { withTranslation } from 'react-i18next';
-import {Button, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
+import { EmailControl } from '.';
 
 export class ResetPasswordForm extends Component {
   static propTypes = {
@@ -13,24 +14,12 @@ export class ResetPasswordForm extends Component {
   };
 
   render() {
-    const { email } = this.props.auth // todo: on email change update global state
-
     const t = key => this.props.t('auth:resetPasswordForm.'.concat(key))
 
     return (
       <div className="auth-reset-password-form">
         <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>{t('email.label')}</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder={t('email.placeholder')}
-              defaultValue={email}
-              required />
-            <Form.Text className="text-muted">
-              {t('email.description')}
-            </Form.Text>
-          </Form.Group>
+          <EmailControl controlId="email" description={t('email.description')}/>        
           <Button variant="primary" type="submit">
             {t('resetPassword')}
           </Button>

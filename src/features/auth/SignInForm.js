@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { withTranslation } from 'react-i18next';
-import {Button, Form, Spinner } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
+import { EmailControl } from '.';
 import { PopUp } from '../common';
 
 export class SignInForm extends Component {
@@ -14,7 +15,7 @@ export class SignInForm extends Component {
   };
 
   render() {    
-    const {email, signInPending, signInError} = this.props.auth // todo: on email change update global state
+    const {email, signInPending, signInError} = this.props.auth
     const {signIn, dismissSignInError} = this.props.actions
     const locked = signInPending
 
@@ -22,7 +23,6 @@ export class SignInForm extends Component {
       event.preventDefault();
       const form = event.currentTarget
       if (form.checkValidity()) {
-        const email = form.email.value
         const password = form.password.value
         const remember = form.remember.checked
         signIn(email, password, remember)
@@ -39,18 +39,7 @@ export class SignInForm extends Component {
         <PopUp show={signInError != null} title={t('popUp.title')} message={signInError && signInError.message} onClose={dismissSignInError} />
         <Form onSubmit={onFormSubmit}>     
 
-          <Form.Group controlId="email">
-            <Form.Label>{t('email.label')}</Form.Label>
-            <Form.Control 
-              type="email"
-              placeholder={t('email.placeholder')}
-              defaultValue={email}
-              disabled={locked}
-              required />
-            <Form.Text className="text-muted">
-              {t('email.description')}
-            </Form.Text>
-          </Form.Group>
+          <EmailControl controlId="email" disabled={locked} description={t('email.description')}/>
 
           <Form.Group controlId="password">
             <Form.Label>{t('password.label')}</Form.Label>
