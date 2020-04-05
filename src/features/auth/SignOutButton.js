@@ -14,12 +14,13 @@ export class SignOutButton extends Component {
   };
 
   render() {
+    const t = this.props.t
     const {signOutPending, signOutError} = this.props.auth
     const {signOut, dismissSignOutError} = this.props.actions 
 
     return (
       <div className="auth-sign-out-button">
-        <PopUp show={signOutError != null} title="Sign out failed" message={signOutError && signOutError.message} onClose={dismissSignOutError} />          
+        <PopUp show={signOutError != null} title={t('auth:signOutButton.popUp.title')} message={signOutError && signOutError.message} onClose={dismissSignOutError} />          
         <Button variant="primary" type="button" size="sm" disabled={signOutPending} onClick={signOut}>
           {signOutPending &&
           <Spinner
@@ -30,7 +31,7 @@ export class SignOutButton extends Component {
             aria-hidden="true"
           />
           }
-          { signOutPending ? ' Signing out...' : 'Sign out'}                  
+          { signOutPending ? ' ' + t('auth:signOutButton.label.pending') : t('auth:signOutButton.label.default')}                  
         </Button> 
       </div>
     );

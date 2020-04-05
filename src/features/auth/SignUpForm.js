@@ -31,7 +31,7 @@ export class SignUpForm extends Component {
     const onEmailChange = (event) => {
       const email = event.target.value
       const isEmailValid = isValidEmail(email)
-      const emailValidationMessage = isEmailValid ? null : 'Enter a valid e-mail address!'
+      const emailValidationMessage = isEmailValid ? null : t('email.feedback')
       this.setState({email, isEmailValid, emailValidationMessage})
       setState({email})
     }
@@ -43,7 +43,7 @@ export class SignUpForm extends Component {
       if (changed) {
         const validationResult = validatePassword(newValue)    
         const isPasswordValid = validationResult.valid
-        const passwordValidationMessage = isPasswordValid ? null : getPasswordValidationMessage(validationResult)
+        const passwordValidationMessage = isPasswordValid ? null : getPasswordValidationMessage(validationResult, this.props.t)
         const passwordsMatch = localState.passwordsMatch != null && checkIfPasswordsMatch(newValue, localState.confirmation) 
         this.setState({password: newValue, isPasswordValid, passwordValidationMessage, passwordsMatch})
       }
@@ -70,17 +70,28 @@ export class SignUpForm extends Component {
       } 
     };    
 
+    const t = key => this.props.t('auth:signUpForm.'.concat(key))
+
     return (
       <div className="auth-sign-up-form">
-        <PopUp show={localState.showTermsAndConsitions === true} title="Terms and conditions" message="TBD" onClose={() => this.setState({showTermsAndConsitions: false})} />  
-        <PopUp show={signUpError != null} title="Sign up failed" message={signUpError && signUpError.message} onClose={dismissSignUpError} />
+        <PopUp 
+          show={localState.showTermsAndConsitions === true} 
+          title={t('popUp.termsAndConditions.title')}
+          message={t('popUp.termsAndConditions.message')}
+          onClose={() => this.setState({showTermsAndConsitions: false})}
+        />  
+        <PopUp
+          show={signUpError != null}
+          title={t('popUp.signUpError.title')}
+          message={signUpError && signUpError.message}
+          onClose={dismissSignUpError} />
         <Form onSubmit={onSubmit}>
 
           <Form.Group controlId="email">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>{t('email.label')}</Form.Label>
             <Form.Control 
               type="email"
-              placeholder="Enter email"
+              placeholder={t('email.placeholder')}
               defaultValue={localState.email}
               onChange={onEmailChange}                    
               isValid={localState.isEmailValid === true}
@@ -91,10 +102,10 @@ export class SignUpForm extends Component {
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{t('password.label')}</Form.Label>
             <Form.Control 
               type="password"
-              placeholder="Enter password"
+              placeholder={t('password.placeholder')}
               onChange={onPasswordChange}
               defaultValue={localState.password}
               isValid={localState.isPasswordValid === true}
@@ -105,27 +116,27 @@ export class SignUpForm extends Component {
           </Form.Group> 
 
           <Form.Group controlId="confirmation">
-            <Form.Label>Confirm password</Form.Label>
+            <Form.Label>{t('confirmation.label')}</Form.Label>
             <Form.Control 
               type="password"
-              placeholder="Enter password"
+              placeholder={t('confirmation.placeholder')}
               onChange={onConfirmationChange}
               defaultValue={localState.confirmation}
               isValid={localState.passwordsMatch === true}
               isInvalid={localState.passwordsMatch === false}
               disabled={locked}
               required />
-            <Form.Control.Feedback type="invalid">Passwords don't match</Form.Control.Feedback>                          
+            <Form.Control.Feedback type="invalid">{t('confirmation.feedback')}</Form.Control.Feedback>                          
           </Form.Group>                 
 
-          <Form.Group>
+          <Form.Group controlId="agreement">
             <Form.Check required
-              label="Agree to"
-              feedback="You must agree before submitting."
+              label={t('agreement.label')}
+              feedback={t('agreement.feedback')}
               style={{display: 'inline'}}
               disabled={locked}
             />
-            <Form.Label>&nbsp;<a href="#showModal" onClick={() => this.setState({showTermsAndConsitions: true})}>terms and conditions</a></Form.Label>
+            <Form.Label>&nbsp;<a href="#showModal" onClick={() => this.setState({showTermsAndConsitions: true})}>{t('agreement.link')}</a></Form.Label>
           </Form.Group>                             
           <Button variant="primary" type="submit" disabled={locked}>
             {signUpPending &&
@@ -137,7 +148,7 @@ export class SignUpForm extends Component {
               aria-hidden="true"
             />
             }
-            { signUpPending ? ' Signing up...' : 'Sign up'}                  
+            { signUpPending ? ' ' + t('signUp.pending') : t('signUp.default')}                  
           </Button>  
 
         </Form>      

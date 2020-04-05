@@ -43,7 +43,7 @@ export class RestrictedContent extends Component {
           <SignInForm />
           <p className="link">
             <Trans ns="auth" i18nKey="signInForm.links.reset">
-              Forgot password? <a href={linkToScreen(SCREEN_RESET_PASSWORD)} onClick={switchScreen(SCREEN_RESET_PASSWORD)}>Reset</a>
+              Forgot? <a href={linkToScreen(SCREEN_RESET_PASSWORD)} onClick={switchScreen(SCREEN_RESET_PASSWORD)}>Reset</a>
             </Trans>
           </p> 
           <p className="link">
@@ -56,14 +56,26 @@ export class RestrictedContent extends Component {
         {currentScreen === SCREEN_SING_UP &&
         <AuthDialog>
           <SignUpForm />
-          <p>Already have an account? <a href={linkToScreen(SCREEN_SIGN_IN)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a></p>        
+          <p className="link">
+            <Trans ns="auth" i18nKey="signUpForm.links.signIn">
+              Registered? <a href={linkToScreen(SCREEN_SIGN_IN)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a>
+            </Trans>
+          </p>                     
         </AuthDialog>
         }
         {currentScreen === SCREEN_RESET_PASSWORD &&
         <AuthDialog>
           <ResetPasswordForm />
-          <p>Remember password? <a href={linkToScreen(SCREEN_RESET_PASSWORD)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a></p>
-          <p>Don't have an account? <a href={linkToScreen(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a></p>        
+          <p className="link">
+            <Trans ns="auth" i18nKey="resetPasswordForm.links.signIn">
+              Remember? <a href={linkToScreen(SCREEN_SIGN_IN)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a>
+            </Trans>
+          </p>    
+          <p className="link">
+            <Trans ns="auth" i18nKey="resetPasswordForm.links.signUp">
+              Unregisterd? <a href={linkToScreen(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a>
+            </Trans>
+          </p>                             
         </AuthDialog>
         }
         {signedIn && this.props.children}    

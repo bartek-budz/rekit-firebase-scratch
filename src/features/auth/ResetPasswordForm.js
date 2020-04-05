@@ -15,22 +15,24 @@ export class ResetPasswordForm extends Component {
   render() {
     const { email } = this.props.auth // todo: on email change update global state
 
+    const t = key => this.props.t('auth:resetPasswordForm.'.concat(key))
+
     return (
       <div className="auth-reset-password-form">
         <Form>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>{t('email.label')}</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder={t('email.placeholder')}
               defaultValue={email}
               required />
             <Form.Text className="text-muted">
-              Confirmation link will be sent to this e-mail
+              {t('email.description')}
             </Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit">
-            Reset password
+            {t('resetPassword')}
           </Button>
         </Form>
       </div>

@@ -34,34 +34,38 @@ export function validatePassword(value) {
   }
 }
 
-export function getPasswordValidationMessage(validationResult) {
+export function getPasswordValidationMessage(validationResult, t) {
   const noRequiredLength = validationResult.tooShort || validationResult.tooLong
   const noRequiredChars = validationResult.noNumericDigit || validationResult.noLowercaseLetter || validationResult.noSpecialChar
-  let message = 'Password must '
+  const space = ' '
+  const translationPrefix = 'auth:passwordValidation.'
+  const getMessage = key => t('auth:passwordValidation.' + key)
+
+  let message = getMessage('prefix').concat(space)
   if (validationResult.tooShort) {
-    message = message.concat(`be at least ${validationResult.minLength} characters long`)
+    message = message.concat(t(translationPrefix + 'requirements.minLength', {minLength: validationResult.minLength}))
   }
   if (validationResult.tooLong) {
-    message = message.concat(`be at most ${validationResult.maxLength} characters long`)
+    message = message.concat(t(translationPrefix + 'requirements.minLength', {maxLength: validationResult.maxLength}))
   }
   if (noRequiredChars) {
     if (noRequiredLength) {
-      message = message.concat(' and ')
+      message = message.concat(space).concat(getMessage('conjunction')).concat(space)
     }
     let requiredCharacters = []
     if (validationResult.noNumericDigit) {
-      requiredCharacters.push('one numeric digit')
+      requiredCharacters.push(getMessage('requirements.numericDigit'))
     }
     if (validationResult.noLowercaseLetter) {
-      requiredCharacters.push('one lowercase letter')
+      requiredCharacters.push(getMessage('requirements.lowercaseLetter'))
     }
     if (validationResult.noUppercaseLetter) {
-      requiredCharacters.push('one uppercase lettter')
+      requiredCharacters.push(getMessage('requirements.uppercaseLetter'))
     }       
     if (validationResult.noSpecialChar) {
-      requiredCharacters.push('one special character')
+      requiredCharacters.push(getMessage('requirements.specialCharacter'))
     }  
-    message = message.concat(`contain at least ${requiredCharacters.join(', ')}`)
+    message = message.concat(getMessage('reqCharacterPrefix')).concat(space).concat(requiredCharacters.join(', '))
   }
   return message
 }

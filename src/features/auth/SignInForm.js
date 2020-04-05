@@ -13,8 +13,7 @@ export class SignInForm extends Component {
     actions: PropTypes.object.isRequired,
   };
 
-  render() {
-    const t = this.props.t
+  render() {    
     const {email, signInPending, signInError} = this.props.auth // todo: on email change update global state
     const {signIn, dismissSignInError} = this.props.actions
     const locked = signInPending
@@ -33,29 +32,31 @@ export class SignInForm extends Component {
       } 
     };
 
+    const t = key => this.props.t('auth:signInForm.'.concat(key))
+
     return (
       <div className="auth-sign-in-form">
-        <PopUp show={signInError != null} title="Sign in failed" message={signInError && signInError.message} onClose={dismissSignInError} />
+        <PopUp show={signInError != null} title={t('popUp.title')} message={signInError && signInError.message} onClose={dismissSignInError} />
         <Form onSubmit={onFormSubmit}>     
 
           <Form.Group controlId="email">
-            <Form.Label>{t('auth:signInForm.email.label')}</Form.Label>
+            <Form.Label>{t('email.label')}</Form.Label>
             <Form.Control 
               type="email"
-              placeholder={t('auth:signInForm.email.placeholder')}
+              placeholder={t('email.placeholder')}
               defaultValue={email}
               disabled={locked}
               required />
             <Form.Text className="text-muted">
-              {t('auth:signInForm.email.description')}
+              {t('email.description')}
             </Form.Text>
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>{t('auth:signInForm.password.label')}</Form.Label>
+            <Form.Label>{t('password.label')}</Form.Label>
             <Form.Control
               type="password"
-              placeholder={t('auth:signInForm.password.placeholder')}
+              placeholder={t('password.placeholder')}
               disabled={locked}
               required />
           </Form.Group>
@@ -63,7 +64,7 @@ export class SignInForm extends Component {
           <Form.Group controlId="remember">
             <Form.Check 
               type="checkbox"
-              label={t('auth:signInForm.remember.label')}
+              label={t('remember.label')}
               disabled={locked}
             />
           </Form.Group>
@@ -77,7 +78,7 @@ export class SignInForm extends Component {
               aria-hidden="true"
             />
             }
-            { signInPending ? ' ' + t('auth:signInForm.signIn.pending') : t('auth:signInForm.signIn.default')}                  
+            { signInPending ? ' ' + t('signIn.pending') : t('signIn.default')}                  
           </Button>    
                         
         </Form> 
