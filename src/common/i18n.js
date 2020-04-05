@@ -10,7 +10,7 @@ i18n
   // detect user language
   // learn more: https://github.com/i18next/i18next-browser-languageDetector
   .use(LanguageDetector)
-  // pass the i18n instance to react-i18next.
+  // pass the i18n instance to react-i18next
   .use(initReactI18next)
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
@@ -36,3 +36,16 @@ export function changeLanguage(key) {
 export function getCurrentLanguage() { 
   return i18n.language || window.localStorage.i18nextLng || '';
 }
+
+export const AVAILABLE_LANGUAGES = [
+  {
+    name: 'English',
+    languageCode: 'en',
+    flagCode: 'gb'
+  },
+  {
+    name: 'Polski',
+    languageCode: 'pl',
+    flagCode: 'pl'
+  }  
+]

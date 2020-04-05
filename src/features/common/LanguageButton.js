@@ -2,35 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import Flag from 'react-world-flags'
-import { changeLanguage, getCurrentLanguage } from '../../common/i18n';
+import { AVAILABLE_LANGUAGES, changeLanguage, getCurrentLanguage } from '../../common/i18n';
 
 export default class LanguageButton extends Component {
   static propTypes = {
   };
 
   render() {
-    // todo: make language list dynamic
     const currentLang = getCurrentLanguage()
+    const currentLangConfid = AVAILABLE_LANGUAGES.find(element => element.languageCode === currentLang)
+    const currentLangFlagCode = currentLangConfid && currentLangConfid.flagCode
+    const options = AVAILABLE_LANGUAGES.map((config) =>
+      <Dropdown.Item eventKey={config.languageCode} active={currentLang === config.languageCode}><Flag width="20" code={config.flagCode} /> {config.name}</Dropdown.Item>
+    );
     return (
       <div className="common-language-button">
         <Dropdown as={ButtonGroup} onSelect={changeLanguage}>
           <Dropdown.Toggle id="dropdown-custom-1">
-            {(function() {
-              switch (currentLang) {
-                case 'pl':
-                  return <Flag code="pl" height="12"/>;
-                default:
-                  return <Flag code="gb" height="12"/>;
-              }
-            })()}          
+            <Flag code={currentLangFlagCode} height="12"/>
           </Dropdown.Toggle>
           <Dropdown.Menu alignRight>
-            { currentLang !== 'en' &&
-            <Dropdown.Item eventKey="en" active={currentLang === 'en'}><Flag width="20" code="gb" /> English</Dropdown.Item>
-            }          
-            { currentLang !== 'pl' &&
-            <Dropdown.Item eventKey="pl" active={currentLang === 'pl'}><Flag width="20" code="pl" /> Polski</Dropdown.Item>
-            }            
+            {options}           
           </Dropdown.Menu>
         </Dropdown>   
       </div>
