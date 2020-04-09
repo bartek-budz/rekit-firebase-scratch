@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import Flag from 'react-world-flags'
-import { AVAILABLE_LANGUAGES, changeLanguage, getCurrentLanguage } from '../../common/i18n';
+import { AVAILABLE_LANGUAGES, changeLanguage, getCurrentLanguageConfig } from '../../common/i18n';
 
 export default class LanguageButton extends Component {
   static propTypes = {
   };
 
   render() {
-    const currentLang = getCurrentLanguage()
-    const currentLangConfid = AVAILABLE_LANGUAGES.find(element => element.languageCode === currentLang)
-    const currentLangFlagCode = currentLangConfid && currentLangConfid.flagCode
+    const currentLangConfig = getCurrentLanguageConfig()
+    const currentLangFlagCode = currentLangConfig.flagCode
     const options = AVAILABLE_LANGUAGES.map((config) =>
-      <Dropdown.Item eventKey={config.languageCode} active={currentLang === config.languageCode}><Flag width="20" code={config.flagCode} /> {config.name}</Dropdown.Item>
+      <Dropdown.Item eventKey={config.languageCode} active={currentLangConfig.languageCode === config.languageCode}><Flag width="20" code={config.flagCode} /> {config.name}</Dropdown.Item>
     );
     return (
       <div className="common-language-button">

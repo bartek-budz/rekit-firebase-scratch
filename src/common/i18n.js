@@ -3,6 +3,8 @@ import Backend from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
+const DEFAULT_LANGUAGE_CODE = 'en-GB'
+
 i18n
   // load translation using xhr -> see /public/locales
   // learn more: https://github.com/i18next/i18next-xhr-backend
@@ -15,7 +17,7 @@ i18n
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    fallbackLng: 'en',
+    fallbackLng: DEFAULT_LANGUAGE_CODE,
     debug: true,
 
     backend: {
@@ -33,19 +35,25 @@ export function changeLanguage(key) {
   i18n.changeLanguage(key)
 }
 
-export function getCurrentLanguage() { 
-  return i18n.language || window.localStorage.i18nextLng || '';
+export function getCurrentLanguageConfig() { 
+  const langCode = i18n.language || window.localStorage.i18nextLng || '';
+  const langConfig = getLanguageConfig(langCode)
+  return langConfig !== undefined ? langConfig : getLanguageConfig(DEFAULT_LANGUAGE_CODE);
+}
+
+export function getLanguageConfig(languageCode) {
+  return AVAILABLE_LANGUAGES.find(element => element.languageCode === languageCode)  
 }
 
 export const AVAILABLE_LANGUAGES = [
   {
     name: 'English',
-    languageCode: 'en',
+    languageCode: 'en-GB',
     flagCode: 'gb'
   },
   {
     name: 'Polski',
-    languageCode: 'pl',
+    languageCode: 'pl-PL',
     flagCode: 'pl'
   }  
 ]
