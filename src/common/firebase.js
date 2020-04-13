@@ -14,3 +14,11 @@ let firebaseConfig = {
 }
 
 export const Firebase = firebase.initializeApp(firebaseConfig)
+
+export function getAuthPersistence(remember) {
+  return remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION
+}
+
+export function addAuthStateListener(listener) {
+  firebase.auth().onAuthStateChanged(listener)
+}

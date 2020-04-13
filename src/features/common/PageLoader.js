@@ -9,7 +9,7 @@ export default class PageLoader extends Component {
   render() {
     return (
       <div className="common-page-loader">
-        <Spinner animation="border" size="lg" />
+        <Spinner className="spinner" animation="border" variant="primary"/>
       </div>
     );
   }

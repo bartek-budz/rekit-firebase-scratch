@@ -5,3 +5,4 @@ export { default as RestrictedContent } from './RestrictedContent';
 export { default as SignOutButton } from './SignOutButton';
 export { default as AuthDialog } from './AuthDialog';
 export { default as EmailControl } from './EmailControl';
+export { default as AuthLoader } from './AuthLoader';

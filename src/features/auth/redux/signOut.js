@@ -4,7 +4,7 @@ import {
   AUTH_SIGN_OUT_FAILURE,
   AUTH_SIGN_OUT_DISMISS_ERROR,
 } from './constants';
-import { Firebase } from '../../common/firebase.js'
+import { Firebase } from '../../../common/firebase.js'
 
 export function signOut(args = {}) {
   return (dispatch, getState) => {

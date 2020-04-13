@@ -4,7 +4,7 @@ import {
   AUTH_SIGN_UP_FAILURE,
   AUTH_SIGN_UP_DISMISS_ERROR,
 } from './constants';
-import { Firebase } from '../../common/firebase.js'
+import { Firebase } from '../../../common/firebase.js'
 
 export function signUp(email, password) {
   return (dispatch, getState) => {

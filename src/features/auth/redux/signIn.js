@@ -4,7 +4,8 @@ import {
   AUTH_SIGN_IN_FAILURE,
   AUTH_SIGN_IN_DISMISS_ERROR,
 } from './constants';
-import { Firebase } from '../../common/firebase.js'
+import { Firebase, getAuthPersistence } from '../../../common/firebase.js';
+
 
 export function signIn(email, password, remember) {
   return (dispatch, getState) => { 
@@ -12,30 +13,32 @@ export function signIn(email, password, remember) {
       type: AUTH_SIGN_IN_BEGIN,
     });
 
-    return new Promise((resolve, reject) => {
-      // todo: handle remember me
+    const setPersistence = () => Firebase.auth().setPersistence(getAuthPersistence(remember))
+    const signInWithEmailAndPassword = () => Firebase.auth().signInWithEmailAndPassword(email, password)
 
-      Firebase.auth().signInWithEmailAndPassword(email, password).then(
-        (res) => {
-          console.debug(res)
-          dispatch({
-            type: AUTH_SIGN_IN_SUCCESS,
-            data: res,
-          });
-          resolve(res);
-        },
-        (err) => {
-          dispatch({
-            type: AUTH_SIGN_IN_FAILURE,
-            data: { 
-              error: {
-                code: err.code,
-                message: err.message
-              }
-            },
-          });
-          reject(err);
-        },
+    return new Promise((resolve, reject) => { 
+      setPersistence()
+        .then(signInWithEmailAndPassword)
+        .then(
+          (res) => {            
+            dispatch({
+              type: AUTH_SIGN_IN_SUCCESS,
+              data: res,
+            });
+            resolve(res);
+          },
+          (err) => {
+            dispatch({
+              type: AUTH_SIGN_IN_FAILURE,
+              data: { 
+                error: {
+                  code: err.code,
+                  message: err.message
+                }
+              },
+            });
+            reject(err);
+          }
       );
     });
   };
