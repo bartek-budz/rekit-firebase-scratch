@@ -11,17 +11,19 @@ export class SignOutButton extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    variant: PropTypes.string
   };
 
   render() {
     const t = this.props.t
     const {signOutPending, signOutError} = this.props.auth
     const {signOut, dismissSignOutError} = this.props.actions 
+    const variant = this.props.variant || "primary"
 
     return (
       <div className="auth-sign-out-button">
         <PopUp show={signOutError != null} title={t('auth:signOutButton.popUp.title')} message={signOutError && signOutError.message} onClose={dismissSignOutError} />          
-        <Button variant="primary" type="button" size="sm" disabled={signOutPending} onClick={signOut}>
+        <Button variant={variant} type="button" disabled={signOutPending} onClick={signOut}>
           {signOutPending &&
           <Spinner
             as="span"

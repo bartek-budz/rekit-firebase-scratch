@@ -1,19 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Home } from '../../../src/features/home/Home';
+import { AuthLink } from '../../../src/features/auth/AuthLink';
 
-describe('home/Home', () => {
+describe('auth/AuthLink', () => {
   it('renders node with correct class name', () => {
     const props = {
-      home: {},
+      auth: {},
       actions: {},
     };
     const renderedComponent = shallow(
-      <Home {...props} />
+      <AuthLink {...props} />
     );
 
     expect(
-      renderedComponent.find('.home-home').length
+      renderedComponent.find('.auth-auth-link').length
     ).toBe(1);
   });
 });

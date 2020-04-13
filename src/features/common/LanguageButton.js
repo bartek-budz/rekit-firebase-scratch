@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import Flag from 'react-world-flags'
 import { AVAILABLE_LANGUAGES, changeLanguage, getCurrentLanguageConfig } from '../../common/i18n';

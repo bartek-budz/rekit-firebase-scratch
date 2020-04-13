@@ -1,11 +1,11 @@
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import '../../common/i18n';
 import { PageLoader } from '../common';
+import { TRANSLATION_NAMESPACES } from '../../common/i18n.js';
 
 function TranslationNamespaceLoader() {
-  useTranslation('auth'); // todo: find some better way to load namespaces
+  TRANSLATION_NAMESPACES.forEach(namespace => useTranslation(namespace))
   return null
 }
 

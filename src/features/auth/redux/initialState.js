@@ -1,6 +1,6 @@
 const initialState = {
-  email: '',
-  userData: null,
+  email: '',  
+  userData: undefined,
   signUpPending: false,
   signUpError: null,
   signInPending: false,

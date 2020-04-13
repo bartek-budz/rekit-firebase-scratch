@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import { SignOutButton, RestrictedContent } from '../auth';
+import { Redirect, withRouter } from 'react-router-dom';
 
-export class Home extends Component {
+export class AuthRedirect extends Component {
   static propTypes = {
-    home: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
   };
 
+
   render() {
+    const search = this.props.location.search;
+    const params = new URLSearchParams(search);
+    const next = params.get('next');
+
     return (
-      <div className="home-home">     
-        <RestrictedContent>
-          <div className="screen-center">
-            <SignOutButton />      
-          </div>         
-        </RestrictedContent>
+      <div className="auth-auth-redirect">
+        {next && <Redirect to={next} />}
       </div>
     );
   }
@@ -27,7 +28,7 @@ export class Home extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
-    home: state.home,
+    auth: state.auth,
   };
 }
 
@@ -41,4 +42,5 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(withRouter(props => <AuthRedirect {...props}/>));
+

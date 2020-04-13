@@ -1,0 +1,6 @@
+{
+  "languageButton": {
+    "helloWorld": "Witaj, świecie!",
+    "howTo": "Aby załadować tłumaczenie, użyj <1>funkcji t</1> razem z <3>withTranslation</3>, lub po prostu <5>komponentu Trans</5>"
+  }
+}

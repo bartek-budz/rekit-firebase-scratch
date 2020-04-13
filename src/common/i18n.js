@@ -29,8 +29,6 @@ i18n
     },
   });
 
-export default i18n;
-
 export function changeLanguage(key) {
   i18n.changeLanguage(key)
 }
@@ -57,3 +55,5 @@ export const AVAILABLE_LANGUAGES = [
     flagCode: 'pl'
   }  
 ]
+
+export const TRANSLATION_NAMESPACES = ['auth', 'examples']

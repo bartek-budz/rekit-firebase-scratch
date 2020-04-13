@@ -3,24 +3,27 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import { AuthSuspense } from '.';
+import { Link, withRouter } from 'react-router-dom';
+import { RestrictedContent } from '.';
 
-export class RestrictedContent extends Component {
+export class AuthLink extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
-    loader: PropTypes.node,
-    fallback: PropTypes.node,
+    to: PropTypes.string,
     children: PropTypes.node,    
   };
 
   render() {
-    const signedIn = this.props.auth.userData != null
+    const linkPath = this.props.to
+    const next = linkPath || this.props.location.pathname    
+    const linkUrl = "/auth/sign-in?next=".concat(encodeURIComponent(next))
+
     return (
-      <div className="auth-restricted-content">
-        <AuthSuspense fallback={this.props.loader}>
-          {signedIn ? this.props.children : this.props.fallback}
-        </AuthSuspense>
+      <div className="auth-auth-link">
+        <RestrictedContent loader={this.props.children} fallback={<Link to={linkUrl}>{this.props.children}</Link>}>
+          { linkPath ? <Link to={linkPath}>{this.props.children}</Link> : this.props.children}          
+        </RestrictedContent>
       </div>
     );
   }
@@ -43,4 +46,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RestrictedContent);
+)(withRouter(props => <AuthLink {...props}/>));

@@ -51,10 +51,14 @@ export class SignUpForm extends Component {
       return password.localeCompare(confirmation) === 0    
     }
 
+    const onShowTermsAndConditions = (event) => {
+      event.preventDefault()
+      this.setState({showTermsAndConditions: true})
+    }
+
     const onSubmit = (event) => {
       event.preventDefault();
       if (event.currentTarget.checkValidity()) {        
-        console.debug(localState)
         signUp(globalState.email, localState.password)
       }
       else {
@@ -67,10 +71,10 @@ export class SignUpForm extends Component {
     return (
       <div className="auth-sign-up-form">
         <PopUp 
-          show={localState.showTermsAndConsitions === true} 
+          show={localState.showTermsAndConditions === true}
           title={t('popUp.termsAndConditions.title')}
           message={t('popUp.termsAndConditions.message')}
-          onClose={() => this.setState({showTermsAndConsitions: false})}
+          onClose={() => this.setState({showTermsAndConditions: false})}
         />  
         <PopUp
           show={signUpError != null}
@@ -116,7 +120,7 @@ export class SignUpForm extends Component {
               style={{display: 'inline'}}
               disabled={locked}
             />
-            <Form.Label>&nbsp;<a href="#showModal" onClick={() => this.setState({showTermsAndConsitions: true})}>{t('agreement.link')}</a></Form.Label>
+            <Form.Label>&nbsp;<a href="#termsAndConditions" onClick={onShowTermsAndConditions}>{t('agreement.link')}</a></Form.Label>
           </Form.Group>                             
           <Button variant="primary" type="submit" disabled={locked}>
             {signUpPending &&
