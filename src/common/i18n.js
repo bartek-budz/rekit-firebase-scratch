@@ -5,6 +5,21 @@ import { initReactI18next } from 'react-i18next';
 
 const DEFAULT_LANGUAGE_CODE = 'en-GB'
 
+export const TRANSLATION_NAMESPACES = ['auth', 'examples']
+
+export const AVAILABLE_LANGUAGES = [
+  {
+    name: 'English',
+    languageCode: 'en-GB',
+    flagCode: 'gb'
+  },
+  {
+    name: 'Polski',
+    languageCode: 'pl-PL',
+    flagCode: 'pl'
+  }  
+]
+
 i18n
   // load translation using xhr -> see /public/locales
   // learn more: https://github.com/i18next/i18next-xhr-backend
@@ -27,33 +42,26 @@ i18n
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
+
+    ns: TRANSLATION_NAMESPACES,
   });
 
-export function changeLanguage(key) {
-  i18n.changeLanguage(key)
+export function changeLanguageAndGetConfig(languageCode) {
+  const langConfig = getLanguageConfigOrDefault(languageCode)
+  i18n.changeLanguage(langConfig.languageCode)
+  return langConfig
 }
 
 export function getCurrentLanguageConfig() { 
   const langCode = i18n.language || window.localStorage.i18nextLng || '';
-  const langConfig = getLanguageConfig(langCode)
-  return langConfig !== undefined ? langConfig : getLanguageConfig(DEFAULT_LANGUAGE_CODE);
+  return getLanguageConfigOrDefault(langCode)  
 }
 
 export function getLanguageConfig(languageCode) {
   return AVAILABLE_LANGUAGES.find(element => element.languageCode === languageCode)  
 }
 
-export const AVAILABLE_LANGUAGES = [
-  {
-    name: 'English',
-    languageCode: 'en-GB',
-    flagCode: 'gb'
-  },
-  {
-    name: 'Polski',
-    languageCode: 'pl-PL',
-    flagCode: 'pl'
-  }  
-]
-
-export const TRANSLATION_NAMESPACES = ['auth', 'examples']
+export function getLanguageConfigOrDefault(languageCode) {
+  const langConfig = getLanguageConfig(languageCode)
+  return langConfig !== undefined ? langConfig : getLanguageConfig(DEFAULT_LANGUAGE_CODE);
+}
