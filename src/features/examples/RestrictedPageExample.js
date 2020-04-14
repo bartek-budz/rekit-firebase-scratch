@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-bootstrap';
 import { SignOutButton, RestrictedPage } from '../auth';
+import { ExamplesNavigation } from '.';
 
 export default class RestrictedPageExample extends Component {
   static propTypes = {
@@ -9,14 +10,13 @@ export default class RestrictedPageExample extends Component {
   render() {
     return (
       <div className="examples-restricted-page-example">
+        <ExamplesNavigation active="RestrictedPage"/>
         <RestrictedPage>
           <Alert variant="success">
-            <Alert.Heading>Hey, nice to see you!</Alert.Heading>
+            <Alert.Heading>If you see this, it means you are authenticated</Alert.Heading>
             <p>This whole page is restricted to authenticated users.</p>
             <hr />
-            <div className="d-flex justify-content-end">
-              <SignOutButton variant="outline-success" />      
-            </div>
+            <SignOutButton variant="outline-success" />
           </Alert>
         </RestrictedPage>
       </div>

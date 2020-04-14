@@ -1,18 +1,15 @@
 @import '../../styles/mixins';
 
 .auth-auth-dialog {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  .centerized-div();
+  .rounded-corner-box();
 
-  .div {
-    display: 'flex';
-    align-items: 'center';
-    justify-content: 'center';
+  .auth-dialog-title {
+    text-align: center;
+    white-space: nowrap;
   }
 
-  .link {
-    margin-top: 1em;
+  .auth-dialog-section {
+    margin-top: 2em;
   }
 }

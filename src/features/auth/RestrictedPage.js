@@ -38,50 +38,53 @@ export class RestrictedPage extends Component {
       this.setState({currentScreen: screenId})
     }
 
+    const t = key => this.props.t('auth:'.concat(key))    
+
     const renderAuthDialog = () => {
       switch (currentScreen) {
         case SCREEN_SIGN_IN:
           return (
-            <AuthDialog>
-              <SignInForm />
-              <p className="link">
-                <Trans ns="auth" i18nKey="signInForm.links.reset">
-                  Forgot? <a href={fakeLink(SCREEN_RESET_PASSWORD)} onClick={switchScreen(SCREEN_RESET_PASSWORD)}>Reset</a>
-                </Trans>
-              </p> 
-              <p className="link">
-                <Trans ns="auth" i18nKey="signInForm.links.signUp">
-                  Don't have an account? <a href={fakeLink(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a>
-                </Trans>
-              </p>
-            </AuthDialog>
+            <AuthDialog title={t('signInForm.title')} form={<SignInForm />} links={
+              <div>
+                <p>
+                  <Trans ns="auth" i18nKey="signInForm.links.reset">
+                    Forgot? <a href={fakeLink(SCREEN_RESET_PASSWORD)} onClick={switchScreen(SCREEN_RESET_PASSWORD)}>Reset</a>
+                  </Trans>
+                </p> 
+                <p>
+                  <Trans ns="auth" i18nKey="signInForm.links.signUp">
+                    Don't have an account? <a href={fakeLink(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a>
+                  </Trans>
+                </p>
+              </div>
+            }/>
           );
         case SCREEN_SING_UP:
           return (
-            <AuthDialog>
-              <SignUpForm />
-              <p className="link">
+            <AuthDialog title={t('signUpForm.title')} form={<SignUpForm />} links={
+              <p>
                 <Trans ns="auth" i18nKey="signUpForm.links.signIn">
                   Registered? <a href={fakeLink(SCREEN_SIGN_IN)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a>
                 </Trans>
-              </p>                     
-            </AuthDialog>            
+              </p>    
+            }/>           
           );
         case SCREEN_RESET_PASSWORD:
           return (
-            <AuthDialog>
-              <ResetPasswordForm />
-              <p className="link">
-                <Trans ns="auth" i18nKey="resetPasswordForm.links.signIn">
-                  Remember? <a href={fakeLink(SCREEN_SIGN_IN)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a>
-                </Trans>
-              </p>    
-              <p className="link">
-                <Trans ns="auth" i18nKey="resetPasswordForm.links.signUp">
-                  Unregisterd? <a href={fakeLink(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a>
-                </Trans>
-              </p>                             
-            </AuthDialog>
+            <AuthDialog title={t('resetPasswordForm.title')} form={<ResetPasswordForm />} links={
+              <div>
+                <p>
+                  <Trans ns="auth" i18nKey="resetPasswordForm.links.signIn">
+                    Remember? <a href={fakeLink(SCREEN_SIGN_IN)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a>
+                  </Trans>
+                </p>    
+                <p>
+                  <Trans ns="auth" i18nKey="resetPasswordForm.links.signUp">
+                    Unregisterd? <a href={fakeLink(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a>
+                  </Trans>
+                </p>                
+              </div>
+            }/>
           );
         default:
           return null;

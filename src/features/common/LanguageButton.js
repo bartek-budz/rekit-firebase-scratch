@@ -10,11 +10,12 @@ import { AVAILABLE_LANGUAGES, changeLanguage } from '../../common/i18n';
 export class LanguageButton extends Component {
   static propTypes = {
     common: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,    
+    actions: PropTypes.object.isRequired,
+    variant: PropTypes.string       
   };
 
   render() {
-    console.debug(this.props.common)
+    const variant = this.props.variant || "primary"
     const currentLangConfig = this.props.common.langConfig
     const currentLangFlagCode = currentLangConfig.flagCode
     const options = AVAILABLE_LANGUAGES.map((config) =>
@@ -26,7 +27,7 @@ export class LanguageButton extends Component {
     return (
       <div className="common-language-button">
         <Dropdown as={ButtonGroup} onSelect={onLanguageSelect}>
-          <Dropdown.Toggle id="dropdown-custom-1">
+          <Dropdown.Toggle id="dropdown-custom-1" variant={variant}>
             <Flag code={currentLangFlagCode} height="12"/>
           </Dropdown.Toggle>
           <Dropdown.Menu alignRight>
