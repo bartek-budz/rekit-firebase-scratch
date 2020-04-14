@@ -15,7 +15,7 @@ export class ExamplesIndex extends Component {
   render() {
     return (
       <div className="examples-examples-index">
-        <h3>Scratch component examples:</h3>
+        <h3>Custom component examples:</h3>
         <ul>
           <li><Link to="/examples/restricted-page">RestrictedPage</Link> displays sign in form instead of its content for unauthenticated users</li>
           <li><Link to="/examples/restricted-content">RestrictedContent</Link> allows to restrict part of a page to authenticated users</li>
