@@ -1,12 +1,46 @@
 @import '../../styles/mixins';
 
-.auth-auth-dialog {
-  .centerized-div();
-  .rounded-corner-box();
+// todo: play with these a little more
 
-  .auth-dialog-title {
+@media only screen and (min-width: 768px) and (min-height: 768px) {
+  .auth-auth-dialog {
+    .centerized-div();
+  }
+}
+
+@media not screen and (min-width: 768px) and (min-height: 768px){
+  .auth-auth-dialog {
+    position: relative;
+    margin-top: 25px;
+    left: 50%;
+    
+    transform: translate(-50%, 0);
+  }  
+}
+
+@media screen and (min-width: 384px) and (max-width: 767px){
+  .auth-auth-dialog {
+    width: 362px;
+  }
+}  
+
+@media screen and (max-width: 383px){
+  .auth-auth-dialog {
+    width: 95%;
+  }
+}  
+
+@media screen and (max-height: 767px) and (min-width: 768px) {
+  .auth-auth-dialog {
+    max-width: 50%;
+  }
+}
+
+.auth-auth-dialog {
+  .rounded-corner-box();  
+
+  .auth-dialog-header {
     text-align: center;
-    white-space: nowrap;
   }
 
   .auth-dialog-section {

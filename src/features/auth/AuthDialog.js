@@ -16,11 +16,11 @@ export default class AuthDialog extends Component {
         <Container>
           <Row>
             {this.props.title &&
-            <Col xs={12} sm={9} className="auth-dialog-title">
+            <Col xs={12} sm={9} className="auth-dialog-header">
               <h2>{this.props.title}</h2>
             </Col>
             }
-            <Col xs={{span: 4, offset: 8}} sm={{ span: 3, offset: this.props.title ? 0 : 9 }}>
+            <Col xs={{span: 12}} sm={{ span: 3, offset: this.props.title ? 0 : 9 }} className="auth-dialog-header">
               <LanguageButton />
             </Col>
           </Row>
