@@ -69,3 +69,18 @@ export function getPasswordValidationMessage(validationResult, t) {
   }
   return message
 }
+
+export function isFormValid(form) {
+  // workaround for react-bootstrap missing feature of custom form item validation
+  // setting a Form.Control property isInvalid only changes style of the control, does not impact form validation
+  // here we check each form control and fail form validation if the control is assumed ivalid
+  let childCount = form && form.childElementCount
+  for(let childIndex = 0; childIndex < childCount; childIndex++) {
+    let child = form[childIndex]
+    let classList = child && child.classList
+    if (classList instanceof DOMTokenList && classList.contains('is-invalid')) {
+      return false
+    }
+  }
+  return form.checkValidity()
+}

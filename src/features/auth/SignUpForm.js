@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import { EmailControl } from '.';
+import { EmailControl, PasswordControlGroup } from '.';
 import { PopUp } from '../common';
-import { validatePassword, getPasswordValidationMessage } from './utils.js';
+import { isFormValid } from './utils.js';
 
 export class SignUpForm extends Component {
   static propTypes = {
@@ -17,39 +17,15 @@ export class SignUpForm extends Component {
 
   state = {
     password: '',
-    confirmation: '',
     agreement: false,
+    showTermsAndConditions: false,
   }
 
-  render() {  
-    const localState = this.state
-    const globalState = this.props.auth
-    const {signUpPending, signUpError} = globalState
+  render() {     
+    const {email, signUpPending, signUpError} = this.props.auth
+    const {password, agreement, showTermsAndConditions} = this.state
     const {signUp, dismissSignUpError} = this.props.actions
     const locked = signUpPending
-    
-    const onPasswordChange = (event) => {
-      const oldValue = localState.password
-      const newValue = event.target.value
-      const changed = oldValue.localeCompare(newValue) !== 0
-      if (changed) {
-        const validationResult = validatePassword(newValue)    
-        const isPasswordValid = validationResult.valid
-        const passwordValidationMessage = isPasswordValid ? null : getPasswordValidationMessage(validationResult, this.props.t)
-        const passwordsMatch = localState.passwordsMatch != null && checkIfPasswordsMatch(newValue, localState.confirmation) 
-        this.setState({password: newValue, isPasswordValid, passwordValidationMessage, passwordsMatch})
-      }
-    }
-
-    const onConfirmationChange = (event) => {
-      const confirmation = event.target.value
-      const passwordsMatch = localState.passwordsMatch != null && checkIfPasswordsMatch(localState.password, confirmation) 
-      this.setState({confirmation, passwordsMatch})
-    }
-
-    const checkIfPasswordsMatch = function(password, confirmation) {
-      return password.localeCompare(confirmation) === 0    
-    }
 
     const onShowTermsAndConditions = (event) => {
       event.preventDefault()
@@ -58,8 +34,8 @@ export class SignUpForm extends Component {
 
     const onSubmit = (event) => {
       event.preventDefault();
-      if (event.currentTarget.checkValidity()) {        
-        signUp(globalState.email, localState.password)
+      if (isFormValid(event.currentTarget)) {
+        signUp(email, password)
       }
       else {
         event.stopPropagation();   
@@ -71,7 +47,7 @@ export class SignUpForm extends Component {
     return (
       <div className="auth-sign-up-form">
         <PopUp 
-          show={localState.showTermsAndConditions === true}
+          show={showTermsAndConditions}
           title={t('popUp.termsAndConditions.title')}
           message={t('popUp.termsAndConditions.message')}
           onClose={() => this.setState({showTermsAndConditions: false})}
@@ -85,33 +61,12 @@ export class SignUpForm extends Component {
 
           <EmailControl controlId="email" disabled={locked}/>
 
-          <Form.Group controlId="password">
-            <Form.Label>{t('password.label')}</Form.Label>
-            <Form.Control 
-              type="password"
-              placeholder={t('password.placeholder')}
-              onChange={onPasswordChange}
-              defaultValue={localState.password}
-              isValid={localState.isPasswordValid === true}
-              isInvalid={localState.isPasswordValid === false}
-              disabled={locked}
-              required />
-            <Form.Control.Feedback type="invalid">{localState.passwordValidationMessage}</Form.Control.Feedback>                          
-          </Form.Group> 
-
-          <Form.Group controlId="confirmation">
-            <Form.Label>{t('confirmation.label')}</Form.Label>
-            <Form.Control 
-              type="password"
-              placeholder={t('confirmation.placeholder')}
-              onChange={onConfirmationChange}
-              defaultValue={localState.confirmation}
-              isValid={localState.passwordsMatch === true}
-              isInvalid={localState.passwordsMatch === false}
-              disabled={locked}
-              required />
-            <Form.Control.Feedback type="invalid">{t('confirmation.feedback')}</Form.Control.Feedback>                          
-          </Form.Group>                 
+          <PasswordControlGroup
+            controlId="password"
+            onChange={password => this.setState({password})}
+            disabled={locked} 
+            defaultValue={password}
+          />
 
           <Form.Group controlId="agreement">
             <Form.Check required

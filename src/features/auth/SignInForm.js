@@ -7,6 +7,7 @@ import { withTranslation } from 'react-i18next';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { EmailControl } from '.';
 import { PopUp } from '../common';
+import { isFormValid } from './utils.js';
 
 export class SignInForm extends Component {
   static propTypes = {
@@ -22,7 +23,7 @@ export class SignInForm extends Component {
     const onFormSubmit = (event) => {
       event.preventDefault();
       const form = event.currentTarget
-      if (form.checkValidity()) {
+      if (isFormValid(form)) {
         const password = form.password.value
         const remember = form.remember.checked
         signIn(email, password, remember)
