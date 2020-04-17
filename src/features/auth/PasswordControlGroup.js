@@ -8,7 +8,6 @@ export class PasswordControlGroup extends Component {
   static propTypes = {    
     controlId: PropTypes.string,
     disabled: PropTypes.bool,
-    onChange: PropTypes.function,
   };
 
   state = {
@@ -17,11 +16,11 @@ export class PasswordControlGroup extends Component {
     isPasswordValid: null,
     passwordsMatch: null,
     passwordValidationMessage: null,
-  }  
+  }
 
   render() {
-    const { controlId, disabled, onChange } = this.props
-    const { password, confirmation, isPasswordValid, passwordsMatch, passwordValidationMessage } = this.state
+    const {controlId, disabled} = this.props
+    const {password, confirmation, isPasswordValid, passwordsMatch, passwordValidationMessage} = this.state
 
     const onPasswordChange = (event) => {
       const oldValue = password
@@ -31,8 +30,7 @@ export class PasswordControlGroup extends Component {
         const validationResult = validatePassword(newValue)    
         const isPasswordValid = validationResult.valid
         const passwordValidationMessage = isPasswordValid ? null : getPasswordValidationMessage(validationResult, this.props.t)
-        const passwordsMatch = isPasswordValid === true ? checkIfPasswordsMatch(newValue, confirmation) : null
-        onChange(password)     
+        const passwordsMatch = isPasswordValid === true ? checkIfPasswordsMatch(newValue, confirmation) : null        
         this.setState({
           password: newValue, 
           isPasswordValid, 

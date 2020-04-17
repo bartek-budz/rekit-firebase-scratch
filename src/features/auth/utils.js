@@ -84,3 +84,14 @@ export function isFormValid(form) {
   }
   return form.checkValidity()
 }
+
+export const QUERY_PARAM_NEXT_URL = 'next'
+
+export function linkWithNext(path, nextURL) {
+  return `${path}?${QUERY_PARAM_NEXT_URL}=${encodeURIComponent(nextURL)}`
+}
+
+export function getNextURL(location) {
+  const params = new URLSearchParams(location && location.search);
+  return params.get(QUERY_PARAM_NEXT_URL);
+}

@@ -12,3 +12,7 @@ export { default as SignUpPage } from './SignUpPage';
 export { default as ResetPasswordPage } from './ResetPasswordPage';
 export { default as RestrictedContent } from './RestrictedContent';
 export { default as AuthRedirect } from './AuthRedirect';
+export { default as ChangePasswordForm } from './ChangePasswordForm';
+export { default as PasswordControlGroup } from './PasswordControlGroup';
+export { default as EmailActionHandlerPage } from './EmailActionHandlerPage';
+export { default as ChangePasswordPage } from './ChangePasswordPage';

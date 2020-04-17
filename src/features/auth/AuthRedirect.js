@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { Redirect, withRouter } from 'react-router-dom';
+import { getNextURL } from './utils.js';
 
 export class AuthRedirect extends Component {
   static propTypes = {
@@ -12,14 +13,12 @@ export class AuthRedirect extends Component {
   };
 
 
-  render() {
-    const search = this.props.location.search;
-    const params = new URLSearchParams(search);
-    const next = params.get('next');
+  render() {    
+    const nextURL = getNextURL(this.props.location)
 
     return (
       <div className="auth-auth-redirect">
-        {next && <Redirect to={next} />}
+        <Redirect to={nextURL || "/"} />
       </div>
     );
   }

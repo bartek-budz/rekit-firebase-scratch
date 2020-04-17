@@ -4,8 +4,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { withTranslation } from 'react-i18next';
-import { Button, Form } from 'react-bootstrap';
+import { Redirect, withRouter } from 'react-router-dom';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import { EmailControl } from '.';
+import { PopUp } from '../common';
+import { getNextURL } from './utils.js';
 
 export class ResetPasswordForm extends Component {
   static propTypes = {
@@ -13,16 +16,70 @@ export class ResetPasswordForm extends Component {
     actions: PropTypes.object.isRequired,
   };
 
+  state = {
+    redirectToHome: false,
+  }  
+
   render() {
-    const t = key => this.props.t('auth:resetPasswordForm.'.concat(key))
+    const email = this.props.auth.email
+    const {resetPasswordPending, resetPasswordError, resetPasswordSuccess} = this.props.auth
+    const {resetPassword, dismissResetPasswordError, setState} = this.props.actions        
+    const {redirectToHome} = this.state
+    const nextURL = getNextURL(this.props.location)
+
+    const onFormSubmit = (event) => {
+      event.preventDefault();
+      const form = event.currentTarget
+      if (form.checkValidity()) {
+        resetPassword(email, nextURL)
+      }
+      else {
+        event.stopPropagation();   
+      }
+    };
+
+    const onDismissSuccessPopUp = () => {
+      this.setState({redirectToHome: true})
+      setState({resetPasswordSuccess: false})      
+    }
+
+    const translationPrefix = 'auth:resetPasswordForm.'
+    const t = key => this.props.t(translationPrefix.concat(key))
 
     return (
       <div className="auth-reset-password-form">
-        <Form>
-          <EmailControl controlId="email" description={t('email.description')}/>        
-          <Button variant="primary" type="submit">
-            {t('resetPassword')}
-          </Button>
+
+        { redirectToHome && <Redirect to="/" /> }
+
+        <PopUp 
+          show={resetPasswordError != null} 
+          title={t('popUp.error.title')}
+          message={resetPasswordError && resetPasswordError.message}
+          onClose={dismissResetPasswordError}
+        />
+        
+        <PopUp
+          show={resetPasswordSuccess}
+          title={t('popUp.success.title')}
+          message={this.props.t(translationPrefix.concat('popUp.success.message'), {email})}
+          button={t('popUp.success.button')}
+          onClose={onDismissSuccessPopUp}
+        />
+        
+        <Form onSubmit={onFormSubmit}>
+          <EmailControl controlId="email" description={t('email.description')} disabled={resetPasswordPending}/>
+          <Button variant="primary" type="submit" disabled={resetPasswordPending}>
+            {resetPasswordPending &&
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            }
+            { resetPasswordPending ? ' ' + t('sendLink.pending') : t('sendLink.default')}                  
+          </Button>            
         </Form>
       </div>
     );
@@ -46,4 +103,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withTranslation()(ResetPasswordForm));
+)(withTranslation()(withRouter(props => <ResetPasswordForm {...props}/>)));

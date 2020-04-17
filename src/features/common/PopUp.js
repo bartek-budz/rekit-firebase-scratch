@@ -6,12 +6,13 @@ export default class PopUp extends Component {
   static propTypes = {
     show: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,    
     onClose: PropTypes.func.isRequired,
+    button: PropTypes.string
   };
 
   render() {
-    const {show, title, message, onClose} = this.props
+    const { show, title, message, onClose, button } = this.props    
     return (
       <div className="common-pop-up">
         <Modal show={show}
@@ -24,7 +25,7 @@ export default class PopUp extends Component {
           </Modal.Header>
           <Modal.Body>{message}</Modal.Body>
           <Modal.Footer>
-            <Button onClick={onClose}>OK</Button>
+            <Button onClick={onClose}>{button || "OK"}</Button>
           </Modal.Footer>
         </Modal>   
       </div>

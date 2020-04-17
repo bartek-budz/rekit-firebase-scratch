@@ -25,6 +25,7 @@ The scratch in currently under development, aiming to provide at least the follo
 - go to [Firebase Console](https://console.firebase.google.com)
 - if you haven't done it yet, create a new firebase project (free subscription should be enough)
 - enable email & password authentication
+- go to authentication -> templates -> edit one of the e-mail templates -> edit action URL template (by default it is like `https://(your-app-id).firebaseapp.com/__/auth/action`) - set it to `https://(your-app-id).firebaseapp.com/auth/action` (remove `__` before `/auth`)
 - go to project settings, add web app (if you want to use Firebase hosting, you can choose it at this point or later) 
 - at the end you should be able to generate similar config: 
 
@@ -49,6 +50,10 @@ REACT_APP_FIREBASE_PROJECT_ID=YOUR-APP-ID
 REACT_APP_FIREBASE_STORAGE_BUCKET=YOUR-APP-ID.appspot.com
 REACT_APP_FIREBASE_MESSAGE_SENDER_ID=YOUR_MESSAGING_SENDER_ID
 REACT_APP_FIREBASE_APP_ID=YOUR_APP_ID
+```
+also, for proper handling of continueUrl in email messages, add the `REACT_APP_BASE_URL` property with your app base URL, e.g.
+```
+REACT_APP_BASE_URL=https://YOUR-APP-ID.firebaseapp.com
 ```
 - in the root project dir, execute `firebase init`
 - select hosting from Firebase features

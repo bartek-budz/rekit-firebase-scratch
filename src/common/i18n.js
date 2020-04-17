@@ -5,20 +5,25 @@ import { initReactI18next } from 'react-i18next';
 
 const DEFAULT_LANGUAGE_CODE = 'en-GB'
 
-export const TRANSLATION_NAMESPACES = ['auth', 'examples']
+export const TRANSLATION_NAMESPACES = ['auth', 'examples', 'common']
 
+// todo: move this config to json etc.
 export const AVAILABLE_LANGUAGES = [
   {
     name: 'English',
     languageCode: 'en-GB',
+    firebaseCode: 'en',
     flagCode: 'gb'
   },
   {
     name: 'Polski',
     languageCode: 'pl-PL',
+    firebaseCode: 'pl',
     flagCode: 'pl'
   }  
 ]
+
+export const QUERY_PARAM_LANG = 'lang'
 
 i18n
   // load translation using xhr -> see /public/locales
@@ -44,6 +49,8 @@ i18n
     },
 
     ns: TRANSLATION_NAMESPACES,
+
+    lookupQuerystring: QUERY_PARAM_LANG,
   });
 
 export function changeLanguageAndGetConfig(languageCode) {
@@ -64,4 +71,9 @@ export function getLanguageConfig(languageCode) {
 export function getLanguageConfigOrDefault(languageCode) {
   const langConfig = getLanguageConfig(languageCode)
   return langConfig !== undefined ? langConfig : getLanguageConfig(DEFAULT_LANGUAGE_CODE);
+}
+
+export function firebaseCodeToLanguageCode(firebaseCode) {
+  const langConfig = AVAILABLE_LANGUAGES.find(element => element.firebaseCode === firebaseCode) || getCurrentLanguageConfig()
+  return langConfig.languageCode
 }

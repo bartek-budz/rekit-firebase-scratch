@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { Link, withRouter } from 'react-router-dom';
 import { RestrictedContent } from '.';
+import { linkWithNext } from './utils.js';
 
 export class AuthLink extends Component {
   static propTypes = {
@@ -17,7 +18,7 @@ export class AuthLink extends Component {
   render() {
     const linkPath = this.props.to
     const next = linkPath || this.props.location.pathname    
-    const linkUrl = "/auth/sign-in?next=".concat(encodeURIComponent(next))
+    const linkUrl = linkWithNext("/auth/sign-in", next)
 
     return (
       <div className="auth-auth-link">

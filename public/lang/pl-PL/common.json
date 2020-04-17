@@ -1,0 +1,7 @@
+{
+  "pageNotFound": {
+    "title": "Nie znaleziono strony",
+    "message": "Link może być nieprawidlowy lub strona mogła zostać usunięta.",
+    "button": "Strona główna"
+  }
+}

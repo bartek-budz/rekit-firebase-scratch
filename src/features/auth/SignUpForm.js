@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import { Button, Form, Spinner } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import { EmailControl, PasswordControlGroup } from '.';
 import { PopUp } from '../common';
 import { isFormValid } from './utils.js';
@@ -15,17 +15,16 @@ export class SignUpForm extends Component {
     actions: PropTypes.object.isRequired,
   };
 
-  state = {
-    password: '',
+  state = {    
     agreement: false,
     showTermsAndConditions: false,
   }
 
   render() {     
     const {email, signUpPending, signUpError} = this.props.auth
-    const {password, agreement, showTermsAndConditions} = this.state
+    const {showTermsAndConditions} = this.state
     const {signUp, dismissSignUpError} = this.props.actions
-    const locked = signUpPending
+    const locked = signUpPending    
 
     const onShowTermsAndConditions = (event) => {
       event.preventDefault()
@@ -34,7 +33,9 @@ export class SignUpForm extends Component {
 
     const onSubmit = (event) => {
       event.preventDefault();
-      if (isFormValid(event.currentTarget)) {
+      const form = event.currentTarget
+      if (isFormValid(form)) {
+        const password = form.password.value            
         signUp(email, password)
       }
       else {
@@ -64,8 +65,7 @@ export class SignUpForm extends Component {
           <PasswordControlGroup
             controlId="password"
             onChange={password => this.setState({password})}
-            disabled={locked} 
-            defaultValue={password}
+            disabled={locked}
           />
 
           <Form.Group controlId="agreement">

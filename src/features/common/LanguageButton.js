@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import Flag from 'react-world-flags'
-import { AVAILABLE_LANGUAGES, changeLanguage } from '../../common/i18n';
+import { AVAILABLE_LANGUAGES } from '../../common/i18n';
 
 export class LanguageButton extends Component {
   static propTypes = {
