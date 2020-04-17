@@ -4,9 +4,9 @@ The goal of this project is to deliver a "scratch" aka "boilerplate" aka "templa
 
 The scratch in currently under development, aiming to provide at least the following features:
 
-- Email & password authorization with Firebase purely as a backend (~50% done, to be implemented: e-mail verification, password reset)
-- User account management (to be done)
-- Multi-language support (done)
+- Email & password authorization with Firebase purely as a backend (~75% done, to be implemented: e-mail verification, error messages handling)
+- User account management (ability to change e-mail, password etc.) - to be done
+- Multi-language support (~90% done, to be implemented: multi-language support for authentication-related email messages)
 
 
 ## Getting started
