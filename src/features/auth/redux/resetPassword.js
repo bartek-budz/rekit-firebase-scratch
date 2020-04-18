@@ -17,10 +17,8 @@ export function resetPassword(email, nextURL) {
     const actionCodeSettings = nextURL ? {url: APP_BASE_URL + nextURL} : null
 
     return new Promise((resolve, reject) => {      
-      const auth = Firebase.auth()              
-      auth.useDeviceLanguage()
-      // todo: not working - submit issue to Firebase support
-      auth.lanugageCode = getCurrentLanguageConfig().firebaseCode      
+      const auth = Firebase.auth()
+      auth.languageCode = getCurrentLanguageConfig().firebaseCode
       auth.sendPasswordResetEmail(email, actionCodeSettings).then(
         (res) => {
           dispatch({
@@ -28,11 +26,11 @@ export function resetPassword(email, nextURL) {
             data: res,
           });
           resolve(res);
-        },        
+        },
         (err) => {
           dispatch({
             type: AUTH_RESET_PASSWORD_FAILURE,
-            data: { 
+            data: {
               error: {
                 code: err.code,
                 message: err.message
