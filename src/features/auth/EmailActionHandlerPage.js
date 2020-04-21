@@ -19,7 +19,7 @@ export class EmailActionHandlerPage extends Component {
     const params = new URLSearchParams(this.props.location.search);
     const mode = params.get('mode');
     const oobCode = params.get('oobCode');
-    const apiKey = params.get('apiKey');
+    // const apiKey = params.get('apiKey');
     const continueUrl = params.get('continueUrl')
     const optionalNextUrlQuery = continueUrl ? `&${QUERY_PARAM_NEXT_URL}=${continueUrl.replace(APP_BASE_URL, "")}` : "";
     const languageCode = params.get('lang');

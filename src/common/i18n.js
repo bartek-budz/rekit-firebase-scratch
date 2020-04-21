@@ -74,8 +74,7 @@ export function getCurrentLanguageConfig() {
 }
 
 function getLangCodeFromQueryParam() {
-  const queryParameter = getQueryParameter(QUERY_PARAM_LANG)
-  console.debug(queryParameter)
+  const queryParameter = getQueryParameter(QUERY_PARAM_LANG)  
   const langConfig = queryParameter && AVAILABLE_LANGUAGES.find(element => element.languageCode === queryParameter || element.firebaseCode === queryParameter)
   return langConfig && langConfig.languageCode
 }

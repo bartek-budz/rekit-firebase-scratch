@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { AuthDialog, AuthRedirect, SignUpForm, RestrictedContent } from '.';
-import { LinkPreservingQuery } from '../common'
+import { AuthDialog, LinkPreservingNext, RedirectToNext, RestrictedContent, SignUpForm } from '.';
 import { Trans, withTranslation } from 'react-i18next';
 
 export class SignUpPage extends Component {
@@ -15,12 +14,12 @@ export class SignUpPage extends Component {
           <AuthDialog title={t('title')} form={<SignUpForm />} links={
             <p>
               <Trans ns="auth" i18nKey="signUpForm.links.signIn">
-                Registered? <LinkPreservingQuery to="/auth/sign-in">Sign in</LinkPreservingQuery>
+                Registered? <LinkPreservingNext to="/auth/sign-in">Sign in</LinkPreservingNext>
               </Trans>            
             </p>
           }/>
         }>
-          <AuthRedirect />
+          <RedirectToNext />
         </RestrictedContent>
       </div>
     );

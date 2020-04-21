@@ -6,7 +6,6 @@ import {
 } from './constants';
 import { Firebase, getAuthPersistence } from '../../../common/firebase.js';
 
-
 export function signIn(email, password, remember) {
   return (dispatch, getState) => { 
     dispatch({

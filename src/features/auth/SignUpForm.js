@@ -6,7 +6,7 @@ import * as actions from './redux/actions';
 import { withTranslation } from 'react-i18next';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { EmailControl, PasswordControlGroup } from '.';
-import { PopUp } from '../common';
+import { FakeLink, PopUp } from '../common';
 import { isFormValid } from './utils.js';
 
 export class SignUpForm extends Component {
@@ -75,7 +75,7 @@ export class SignUpForm extends Component {
               style={{display: 'inline'}}
               disabled={locked}
             />
-            <Form.Label>&nbsp;<a href="#termsAndConditions" onClick={onShowTermsAndConditions}>{t('agreement.link')}</a></Form.Label>
+            <Form.Label>&nbsp;<FakeLink onClick={onShowTermsAndConditions}>{t('agreement.link')}</FakeLink></Form.Label>
           </Form.Group>                             
           <Button variant="primary" type="submit" disabled={locked}>
             {signUpPending &&

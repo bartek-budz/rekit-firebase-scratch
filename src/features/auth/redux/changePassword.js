@@ -6,33 +6,38 @@ import {
 } from './constants';
 import { Firebase } from '../../../common/firebase.js';
 
-export function changePassword(code, newPassword) {
+export function changePassword(email, newPassword, code) {
   return (dispatch) => {
     dispatch({
       type: AUTH_CHANGE_PASSWORD_BEGIN,
-    });    
+    });
+
+    const confirmPasswordReset = () => Firebase.auth().confirmPasswordReset(code, newPassword)
+    const signInWithEmailAndNewPassword = () => Firebase.auth().signInWithEmailAndPassword(email, newPassword)    
 
     return new Promise((resolve, reject) => {      
-      Firebase.auth().confirmPasswordReset(code, newPassword).then(
-        (res) => {          
-          dispatch({
-            type: AUTH_CHANGE_PASSWORD_SUCCESS,
-            data: res,
-          });
-          resolve(res);
-        },        
-        (err) => {
-          dispatch({
-            type: AUTH_CHANGE_PASSWORD_FAILURE,
-            data: { 
-              error: {
-                code: err.code,
-                message: err.message
-              }
-            },
-          });
-          reject(err);
-        },
+      confirmPasswordReset()
+        .then(signInWithEmailAndNewPassword)      
+        .then(
+          (res) => {          
+            dispatch({
+              type: AUTH_CHANGE_PASSWORD_SUCCESS,
+              data: res,
+            });
+            resolve(res);
+          },        
+          (err) => {
+            dispatch({
+              type: AUTH_CHANGE_PASSWORD_FAILURE,
+              data: { 
+                error: {
+                  code: err.code,
+                  message: err.message
+                }
+              },
+            });
+            reject(err);
+          },
       );
     });
 

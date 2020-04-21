@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { AuthDialog, AuthRedirect, SignInForm, RestrictedContent } from '.';
-import { LinkPreservingQuery } from '../common'
+import { AuthDialog, LinkPreservingNext, RedirectToNext, RestrictedContent, SignInForm } from '.';
 import { Trans, withTranslation } from 'react-i18next';
 
 export class SignInPage extends Component {
@@ -16,18 +15,18 @@ export class SignInPage extends Component {
             <div>
               <p>
                 <Trans ns="auth" i18nKey="signInForm.links.reset">
-                  Forgot? <LinkPreservingQuery to="/auth/reset-password">Reset</LinkPreservingQuery>
+                  Forgot? <LinkPreservingNext to="/auth/reset-password">Reset</LinkPreservingNext>
                 </Trans>
               </p> 
               <p>
                 <Trans ns="auth" i18nKey="signInForm.links.signUp">
-                  Don't have an account? <LinkPreservingQuery to="/auth/sign-up">Sign up</LinkPreservingQuery>
+                  Don't have an account? <LinkPreservingNext to="/auth/sign-up">Sign up</LinkPreservingNext>
                 </Trans>
               </p>
             </div>
           }/>
         }>
-          <AuthRedirect />
+          <RedirectToNext />
         </RestrictedContent>
       </div>
     );

@@ -1,19 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AuthRedirect } from '../../../src/features/auth/AuthRedirect';
+import { RedirectToNext } from '../../../src/features/auth/RedirectToNext';
 
-describe('auth/AuthRedirect', () => {
+describe('auth/RedirectToNext', () => {
   it('renders node with correct class name', () => {
     const props = {
       auth: {},
       actions: {},
     };
     const renderedComponent = shallow(
-      <AuthRedirect {...props} />
+      <RedirectToNext {...props} />
     );
 
     expect(
-      renderedComponent.find('.auth-auth-redirect').length
+      renderedComponent.find('.auth-redirect-to-next').length
     ).toBe(1);
   });
 });

@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { withTranslation } from 'react-i18next';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Button, Form, Spinner } from 'react-bootstrap';
-import { EmailControl } from '.';
+import { EmailControl, RedirectPreservingNext } from '.';
 import { PopUp } from '../common';
 import { getNextURL } from './utils.js';
 
@@ -17,14 +17,14 @@ export class ResetPasswordForm extends Component {
   };
 
   state = {
-    redirectToHome: false,
+    redirectTo: null,
   }  
 
   render() {
     const email = this.props.auth.email
     const {resetPasswordPending, resetPasswordError, resetPasswordSuccess} = this.props.auth
     const {resetPassword, dismissResetPasswordError, setState} = this.props.actions        
-    const {redirectToHome} = this.state
+    const {redirectTo} = this.state
     const nextURL = getNextURL(this.props.location)
 
     const onFormSubmit = (event) => {
@@ -39,7 +39,7 @@ export class ResetPasswordForm extends Component {
     };
 
     const onDismissSuccessPopUp = () => {
-      this.setState({redirectToHome: true})
+      this.setState({redirectTo: '/auth/sign-in'})
       setState({resetPasswordSuccess: false})      
     }
 
@@ -49,7 +49,7 @@ export class ResetPasswordForm extends Component {
     return (
       <div className="auth-reset-password-form">
 
-        { redirectToHome && <Redirect to="/" /> }
+        <RedirectPreservingNext to={redirectTo} />
 
         <PopUp 
           show={resetPasswordError != null} 

@@ -7,6 +7,7 @@ import { reducer as signInReducer } from './signIn';
 import { reducer as signOutReducer } from './signOut';
 import { reducer as resetPasswordReducer } from './resetPassword';
 import { reducer as changePasswordReducer } from './changePassword';
+import { reducer as verifyResetReducer } from './verifyReset';
 
 const reducers = [
   setStateReducer,
@@ -15,6 +16,7 @@ const reducers = [
   signOutReducer,
   resetPasswordReducer,
   changePasswordReducer,
+  verifyResetReducer,
 ];
 
 export default function reducer(state = initialState, action) {

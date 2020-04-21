@@ -1,4 +1,4 @@
-const REGEX_EMAIL = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+const REGEX_EMAIL = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 
 export function isValidEmail(value) {
  return REGEX_EMAIL.test(value)
@@ -88,7 +88,7 @@ export function isFormValid(form) {
 export const QUERY_PARAM_NEXT_URL = 'next'
 
 export function linkWithNext(path, nextURL) {
-  return `${path}?${QUERY_PARAM_NEXT_URL}=${encodeURIComponent(nextURL)}`
+  return nextURL ? `${path}?${QUERY_PARAM_NEXT_URL}=${encodeURIComponent(nextURL)}` : path
 }
 
 export function getNextURL(location) {

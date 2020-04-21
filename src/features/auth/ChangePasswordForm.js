@@ -3,55 +3,54 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import { Redirect,  withRouter } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
+import {  withTranslation } from 'react-i18next';
 import { Button, Form, Spinner } from 'react-bootstrap';
-import { PasswordControlGroup } from '.';
+import { PasswordControlGroup, RedirectToNext } from '.';
 import { PopUp } from '../common';
-import { getNextURL, isFormValid, linkWithNext } from './utils.js';
+import { isFormValid } from './utils.js';
 
 export class ChangePasswordForm extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    code: PropTypes.string.isRequired,    
   };
 
   state = {    
-    redirectTo: null,
+    redirectToNext: false,
   }  
 
   render() {
-    const code = new URLSearchParams(this.props.location.search).get('code');
-    const nextURL = getNextURL(this.props.location)
-    
-    const {redirectTo} = this.state
-    const {changePasswordPending, changePasswordError, changePasswordSuccess} = this.props.auth
+    const {code} = this.props
+    const {redirectToNext} = this.state
+    const {email, changePasswordPending, changePasswordError, changePasswordSuccess} = this.props.auth
     const {changePassword, dismissChangePasswordError, setState} = this.props.actions    
 
     const onFormSubmit = (event) => {
       event.preventDefault();
       const form = event.currentTarget
       if (isFormValid(form)) {
-        const newPassword = form.newPassword.value        
-        changePassword(code, newPassword)
+        const newPassword = form.newPassword.value         
+        changePassword(email, newPassword, code)
       }
       else {
         event.stopPropagation();   
       } 
     };
     
-    const onDismissSuccessPopUp = () => {
-      const redirectTo = nextURL ? linkWithNext("/auth/sign-in", nextURL) : "/auth/sign-in"
-      this.setState({redirectTo})
+    const onDismissSuccessPopUp = () => {      
+      this.setState({redirectToNext: true})
       setState({changePasswordSuccess: false})      
     }
 
-    const t = key => this.props.t('auth:changePassword.'.concat(key))
+    const t = (key, args) => this.props.t('auth:changePassword.'.concat(key), args)
 
     return (
       <div className="auth-change-password-form">
+        
+        {redirectToNext && <RedirectToNext />}        
 
-        {redirectTo && <Redirect to={redirectTo}/>}
+        <p>{t('description', {email})}</p>
 
         <PopUp
           show={changePasswordError != null}
@@ -63,8 +62,7 @@ export class ChangePasswordForm extends Component {
         <PopUp
           show={changePasswordSuccess}
           title={t('popUp.success.title')}
-          message={t('popUp.success.message')}
-          button={t('popUp.success.button')}
+          message={t('popUp.success.message')}          
           onClose={onDismissSuccessPopUp}
         />
 
@@ -108,4 +106,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withTranslation()((withRouter(props => <ChangePasswordForm {...props}/>))));
+)(withTranslation()(ChangePasswordForm));

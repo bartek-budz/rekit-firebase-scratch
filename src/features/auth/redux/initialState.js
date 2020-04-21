@@ -13,6 +13,8 @@ const initialState = {
   changePasswordPending: false,
   changePasswordError: null,
   changePasswordSuccess: false,
+  verifyResetPending: false,
+  verifyResetError: null,
 };
 
 export default initialState;

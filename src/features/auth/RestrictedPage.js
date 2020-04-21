@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import { AuthDialog, SignInForm, SignUpForm, ResetPasswordForm, RestrictedContent } from '.';
-import { PageLoader } from '../common';
 import { Trans, withTranslation } from 'react-i18next';
+import { AuthDialog, SignInForm, SignUpForm, ResetPasswordForm, RestrictedContent } from '.';
+import { FakeLink, PageLoader } from '../common';
 
 const SCREEN_SIGN_IN = 'singIn'
 const SCREEN_SING_UP = 'signUp'
@@ -29,10 +29,6 @@ export class RestrictedPage extends Component {
     const signedIn = userData != null
     const currentScreen = signedIn ? null : localState.currentScreen
 
-    const fakeLink = function(screenId) {
-      return "#".concat(screenId)
-    }
-
     const switchScreen = screenId => event => {
       event.preventDefault()
       this.setState({currentScreen: screenId})
@@ -48,12 +44,12 @@ export class RestrictedPage extends Component {
               <div>
                 <p>
                   <Trans ns="auth" i18nKey="signInForm.links.reset">
-                    Forgot? <a href={fakeLink(SCREEN_RESET_PASSWORD)} onClick={switchScreen(SCREEN_RESET_PASSWORD)}>Reset</a>
+                    Forgot? <FakeLink onClick={switchScreen(SCREEN_RESET_PASSWORD)}>Reset</FakeLink>
                   </Trans>
                 </p> 
                 <p>
                   <Trans ns="auth" i18nKey="signInForm.links.signUp">
-                    Don't have an account? <a href={fakeLink(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a>
+                    Don't have an account? <FakeLink onClick={switchScreen(SCREEN_SING_UP)}>Sign up</FakeLink>
                   </Trans>
                 </p>
               </div>
@@ -64,7 +60,7 @@ export class RestrictedPage extends Component {
             <AuthDialog title={t('signUpForm.title')} form={<SignUpForm />} links={
               <p>
                 <Trans ns="auth" i18nKey="signUpForm.links.signIn">
-                  Registered? <a href={fakeLink(SCREEN_SIGN_IN)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a>
+                  Registered? <FakeLink onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</FakeLink>
                 </Trans>
               </p>    
             }/>           
@@ -75,12 +71,12 @@ export class RestrictedPage extends Component {
               <div>
                 <p>
                   <Trans ns="auth" i18nKey="resetPasswordForm.links.signIn">
-                    Remember? <a href={fakeLink(SCREEN_SIGN_IN)} onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</a>
+                    Remember? <FakeLink onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</FakeLink>
                   </Trans>
                 </p>    
                 <p>
                   <Trans ns="auth" i18nKey="resetPasswordForm.links.signUp">
-                    Unregisterd? <a href={fakeLink(SCREEN_SING_UP)} onClick={switchScreen(SCREEN_SING_UP)}>Sign up</a>
+                    Unregisterd? <FakeLink onClick={switchScreen(SCREEN_SING_UP)}>Sign up</FakeLink>
                   </Trans>
                 </p>                
               </div>
