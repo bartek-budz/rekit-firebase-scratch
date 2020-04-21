@@ -40,15 +40,15 @@ export class RestrictedPage extends Component {
       switch (currentScreen) {
         case SCREEN_SIGN_IN:
           return (
-            <AuthDialog title={t('signInForm.title')} form={<SignInForm />} links={
+            <AuthDialog title={t('signIn.title')} form={<SignInForm />} links={
               <div>
                 <p>
-                  <Trans ns="auth" i18nKey="signInForm.links.reset">
+                  <Trans ns="auth" i18nKey="signIn.links.reset">
                     Forgot? <FakeLink onClick={switchScreen(SCREEN_RESET_PASSWORD)}>Reset</FakeLink>
                   </Trans>
                 </p> 
                 <p>
-                  <Trans ns="auth" i18nKey="signInForm.links.signUp">
+                  <Trans ns="auth" i18nKey="signIn.links.signUp">
                     Don't have an account? <FakeLink onClick={switchScreen(SCREEN_SING_UP)}>Sign up</FakeLink>
                   </Trans>
                 </p>
@@ -57,9 +57,9 @@ export class RestrictedPage extends Component {
           );
         case SCREEN_SING_UP:
           return (
-            <AuthDialog title={t('signUpForm.title')} form={<SignUpForm />} links={
+            <AuthDialog title={t('signUp.title')} form={<SignUpForm />} links={
               <p>
-                <Trans ns="auth" i18nKey="signUpForm.links.signIn">
+                <Trans ns="auth" i18nKey="signUp.links.signIn">
                   Registered? <FakeLink onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</FakeLink>
                 </Trans>
               </p>    
@@ -67,15 +67,15 @@ export class RestrictedPage extends Component {
           );
         case SCREEN_RESET_PASSWORD:
           return (
-            <AuthDialog title={t('resetPasswordForm.title')} form={<ResetPasswordForm />} links={
+            <AuthDialog title={t('resetPassword.title')} form={<ResetPasswordForm />} links={
               <div>
                 <p>
-                  <Trans ns="auth" i18nKey="resetPasswordForm.links.signIn">
+                  <Trans ns="auth" i18nKey="resetPassword.links.signIn">
                     Remember? <FakeLink onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</FakeLink>
                   </Trans>
                 </p>    
                 <p>
-                  <Trans ns="auth" i18nKey="resetPasswordForm.links.signUp">
+                  <Trans ns="auth" i18nKey="resetPassword.links.signUp">
                     Unregisterd? <FakeLink onClick={switchScreen(SCREEN_SING_UP)}>Sign up</FakeLink>
                   </Trans>
                 </p>                

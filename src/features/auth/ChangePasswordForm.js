@@ -80,7 +80,7 @@ export class ChangePasswordForm extends Component {
               aria-hidden="true"
             />
             }
-            { changePasswordPending ? ' ' + t('submit.pending') : t('submit.default')}                  
+            { changePasswordPending ? ' ' + t('button.pending') : t('button.default')}
           </Button>       
 
         </Form>

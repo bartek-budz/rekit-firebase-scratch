@@ -22,7 +22,7 @@ export class SignOutButton extends Component {
 
     return (
       <div className="auth-sign-out-button">
-        <PopUp show={signOutError != null} title={t('auth:signOutButton.popUp.title')} message={signOutError && signOutError.message} onClose={dismissSignOutError} />          
+        <PopUp show={signOutError != null} title={t('auth:signOut.popUp.title')} message={signOutError && signOutError.message} onClose={dismissSignOutError} />
         <Button variant={variant} type="button" disabled={signOutPending} onClick={signOut}>
           {signOutPending &&
           <Spinner
@@ -33,7 +33,7 @@ export class SignOutButton extends Component {
             aria-hidden="true"
           />
           }
-          { signOutPending ? ' ' + t('auth:signOutButton.label.pending') : t('auth:signOutButton.label.default')}                  
+          { signOutPending ? ' ' + t('auth:signOut.label.pending') : t('auth:signOut.label.default')}
         </Button> 
       </div>
     );

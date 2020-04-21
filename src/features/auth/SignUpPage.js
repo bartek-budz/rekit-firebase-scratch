@@ -7,13 +7,13 @@ export class SignUpPage extends Component {
   };
 
   render() {
-    const t = key => this.props.t('auth:signUpForm.'.concat(key))    
+    const t = key => this.props.t('auth:signUp.'.concat(key))
     return (
       <div className="auth-sign-up-page">
         <RestrictedContent fallback={
           <AuthDialog title={t('title')} form={<SignUpForm />} links={
             <p>
-              <Trans ns="auth" i18nKey="signUpForm.links.signIn">
+              <Trans ns="auth" i18nKey="signUp.links.signIn">
                 Registered? <LinkPreservingNext to="/auth/sign-in">Sign in</LinkPreservingNext>
               </Trans>            
             </p>

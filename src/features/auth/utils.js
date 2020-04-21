@@ -38,34 +38,33 @@ export function getPasswordValidationMessage(validationResult, t) {
   const noRequiredLength = validationResult.tooShort || validationResult.tooLong
   const noRequiredChars = validationResult.noNumericDigit || validationResult.noLowercaseLetter || validationResult.noSpecialChar
   const space = ' '
-  const translationPrefix = 'auth:passwordValidation.'
-  const getMessage = key => t('auth:passwordValidation.' + key)
+  const getTranslation = (key, args) => t('auth:validatePassword.'.concat(key), args)
 
-  let message = getMessage('prefix').concat(space)
+  let message = getTranslation('prefix').concat(space)
   if (validationResult.tooShort) {
-    message = message.concat(t(translationPrefix + 'requirements.minLength', {minLength: validationResult.minLength}))
+    message = message.concat(getTranslation('requirements.minLength', {minLength: validationResult.minLength}))
   }
   if (validationResult.tooLong) {
-    message = message.concat(t(translationPrefix + 'requirements.minLength', {maxLength: validationResult.maxLength}))
+    message = message.concat(getTranslation('requirements.minLength', {maxLength: validationResult.maxLength}))
   }
   if (noRequiredChars) {
     if (noRequiredLength) {
-      message = message.concat(space).concat(getMessage('conjunction')).concat(space)
+      message = message.concat(space).concat(getTranslation('conjunction')).concat(space)
     }
     let requiredCharacters = []
     if (validationResult.noNumericDigit) {
-      requiredCharacters.push(getMessage('requirements.numericDigit'))
+      requiredCharacters.push(getTranslation('requirements.numericDigit'))
     }
     if (validationResult.noLowercaseLetter) {
-      requiredCharacters.push(getMessage('requirements.lowercaseLetter'))
+      requiredCharacters.push(getTranslation('requirements.lowercaseLetter'))
     }
     if (validationResult.noUppercaseLetter) {
-      requiredCharacters.push(getMessage('requirements.uppercaseLetter'))
+      requiredCharacters.push(getTranslation('requirements.uppercaseLetter'))
     }       
     if (validationResult.noSpecialChar) {
-      requiredCharacters.push(getMessage('requirements.specialCharacter'))
+      requiredCharacters.push(getTranslation('requirements.specialCharacter'))
     }  
-    message = message.concat(getMessage('reqCharacterPrefix')).concat(space).concat(requiredCharacters.join(', '))
+    message = message.concat(getTranslation('reqCharacterPrefix')).concat(space).concat(requiredCharacters.join(', '))
   }
   return message
 }

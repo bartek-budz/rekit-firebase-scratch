@@ -22,13 +22,12 @@ export class EmailControl extends Component {
 
   render() {
     const { controlId, disabled, description } = this.props
-    const t = key => this.props.t('auth:emailControl.' + key)
+    const t = key => this.props.t('auth:email.' + key)
 
     const onEmailChange = (event) => {
       const email = event.target.value
       const isEmailValid = isValidEmail(email)
-      const emailValidationMessage = isEmailValid ? null : t('email.feedback')
-      this.setState({email, isEmailValid, emailValidationMessage})
+      this.setState({email, isEmailValid})
       this.props.actions.setState({email})
     }    
 

@@ -33,7 +33,7 @@ export class SignInForm extends Component {
       } 
     };
 
-    const t = key => this.props.t('auth:signInForm.'.concat(key))
+    const t = key => this.props.t('auth:signIn.'.concat(key))
 
     return (
       <div className="auth-sign-in-form">
@@ -43,10 +43,10 @@ export class SignInForm extends Component {
           <EmailControl controlId="email" disabled={locked} description={t('email.description')}/>
 
           <Form.Group controlId="password">
-            <Form.Label>{t('password.label')}</Form.Label>
+            <Form.Label>{this.props.t('auth:password.label')}</Form.Label>
             <Form.Control
               type="password"
-              placeholder={t('password.placeholder')}
+              placeholder={this.props.t('auth:password.placeholder')}
               disabled={locked}
               required />
           </Form.Group>
@@ -68,7 +68,7 @@ export class SignInForm extends Component {
               aria-hidden="true"
             />
             }
-            { signInPending ? ' ' + t('signIn.pending') : t('signIn.default')}                  
+            { signInPending ? ' ' + t('button.pending') : t('button.default')}
           </Button>    
                         
         </Form> 

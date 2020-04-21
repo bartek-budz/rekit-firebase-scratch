@@ -7,19 +7,19 @@ export class ResetPasswordPage extends Component {
   };
 
   render() {
-    const t = key => this.props.t('auth:resetPasswordForm.'.concat(key))    
+    const t = key => this.props.t('auth:resetPassword.'.concat(key))
     return (
       <div className="auth-reset-password-page">
         <AuthSuspense>
           <AuthDialog title={t('title')} form={<ResetPasswordForm />} links={
             <div>
               <p>
-                <Trans ns="auth" i18nKey="resetPasswordForm.links.signIn">
+                <Trans ns="auth" i18nKey="resetPassword.links.signIn">
                   Remember? <LinkPreservingNext to="/auth/sign-in">Sign in</LinkPreservingNext>
                 </Trans>
               </p>
               <p>                          
-                <Trans ns="auth" i18nKey="resetPasswordForm.links.signUp">
+                <Trans ns="auth" i18nKey="resetPassword.links.signUp">
                   Unregisterd? <LinkPreservingNext to="/auth/sign-up">Sign up</LinkPreservingNext>
                 </Trans>
               </p>

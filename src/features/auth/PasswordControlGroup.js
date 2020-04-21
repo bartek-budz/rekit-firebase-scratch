@@ -53,15 +53,15 @@ export class PasswordControlGroup extends Component {
       return password.localeCompare(confirmation) === 0    
     }
 
-    const t = this.props.t
+    const t = key => this.props.t('auth:password.'.concat(key))
 
     return (
       <div className="auth-password-control-group">
         <Form.Group controlId={controlId}>
-          <Form.Label>{t('auth:signUpForm.password.label')}</Form.Label>
+          <Form.Label>{t('label')}</Form.Label>
           <Form.Control 
             type="password"
-            placeholder={t('auth:signUpForm.password.placeholder')}
+            placeholder={t('placeholder')}
             onChange={onPasswordChange}
             defaultValue={password}
             isValid={isPasswordValid === true}
@@ -71,10 +71,10 @@ export class PasswordControlGroup extends Component {
           <Form.Control.Feedback type="invalid">{passwordValidationMessage}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId={controlId + "Confirmation"}>
-          <Form.Label>{t('auth:signUpForm.confirmation.label')}</Form.Label>
+          <Form.Label>{t('confirmation.label')}</Form.Label>
           <Form.Control 
             type="password"
-            placeholder={t('auth:signUpForm.confirmation.placeholder')}
+            placeholder={t('confirmation.placeholder')}
             onChange={onConfirmationChange}
             defaultValue={confirmation}
             isValid={passwordsMatch === true}
@@ -82,7 +82,7 @@ export class PasswordControlGroup extends Component {
             disabled={disabled}
             required />
           { (passwordsMatch === false && confirmation !== "") &&
-          <Form.Control.Feedback type="invalid">{t('auth:signUpForm.confirmation.feedback')}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{t('confirmation.feedback')}</Form.Control.Feedback>
           }
         </Form.Group>    
       </div>

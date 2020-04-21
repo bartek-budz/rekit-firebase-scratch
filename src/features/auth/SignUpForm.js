@@ -43,7 +43,7 @@ export class SignUpForm extends Component {
       } 
     };    
 
-    const t = key => this.props.t('auth:signUpForm.'.concat(key))
+    const t = key => this.props.t('auth:signUp.'.concat(key))
 
     return (
       <div className="auth-sign-up-form">
@@ -55,7 +55,7 @@ export class SignUpForm extends Component {
         />  
         <PopUp
           show={signUpError != null}
-          title={t('popUp.signUpError.title')}
+          title={t('popUp.error.title')}
           message={signUpError && signUpError.message}
           onClose={dismissSignUpError} />
         <Form onSubmit={onSubmit}>
@@ -87,7 +87,7 @@ export class SignUpForm extends Component {
               aria-hidden="true"
             />
             }
-            { signUpPending ? ' ' + t('signUp.pending') : t('signUp.default')}                  
+            { signUpPending ? ' ' + t('button.pending') : t('button.default')}
           </Button>  
 
         </Form>      

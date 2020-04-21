@@ -55,7 +55,7 @@ export class AuthLink extends Component {
         { isSignOutLink ?
         <div>
           { signOutSuccess && linkTarget && <Redirect to={linkTarget} />}
-          <PopUp show={signOutError != null} title={t('auth:signOutButton.popUp.title')} message={signOutError && signOutError.message} onClose={dismissSignOutError} />
+          <PopUp show={signOutError != null} title={t('auth:signOut.popUp.title')} message={signOutError && signOutError.message} onClose={dismissSignOutError} />
           <RestrictedContent loader={loader} fallback={fallback}>
             { signOutPending ? pending : (<FakeLink onClick={onSignOutClick}>{linkText}</FakeLink>) }
           </RestrictedContent>          

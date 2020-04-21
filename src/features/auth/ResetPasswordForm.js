@@ -43,7 +43,7 @@ export class ResetPasswordForm extends Component {
       setState({resetPasswordSuccess: false})      
     }
 
-    const translationPrefix = 'auth:resetPasswordForm.'
+    const translationPrefix = 'auth:resetPassword.'
     const t = key => this.props.t(translationPrefix.concat(key))
 
     return (
@@ -78,7 +78,7 @@ export class ResetPasswordForm extends Component {
               aria-hidden="true"
             />
             }
-            { resetPasswordPending ? ' ' + t('sendLink.pending') : t('sendLink.default')}                  
+            { resetPasswordPending ? ' ' + t('button.pending') : t('button.default')}
           </Button>            
         </Form>
       </div>
