@@ -6,6 +6,7 @@ import * as actions from './redux/actions';
 import { withTranslation } from 'react-i18next';
 import { Button, Spinner } from 'react-bootstrap';
 import { PopUp } from '../common';
+import { translateErrorMessage } from './utils.js';
 
 export class SignOutButton extends Component {
   static propTypes = {
@@ -22,7 +23,7 @@ export class SignOutButton extends Component {
 
     return (
       <div className="auth-sign-out-button">
-        <PopUp show={signOutError != null} title={t('auth:signOut.popUp.title')} message={signOutError && signOutError.message} onClose={dismissSignOutError} />
+        <PopUp show={signOutError != null} title={t('auth:signOut.popUp.title')} message={translateErrorMessage(t, signOutError)} onClose={dismissSignOutError} />
         <Button variant={variant} type="button" disabled={signOutPending} onClick={signOut}>
           {signOutPending &&
           <Spinner

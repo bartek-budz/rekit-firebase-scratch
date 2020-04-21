@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { EmailControl, RedirectPreservingNext } from '.';
 import { PopUp } from '../common';
-import { getNextURL } from './utils.js';
+import { getNextURL, translateErrorMessage } from './utils.js';
 
 export class ResetPasswordForm extends Component {
   static propTypes = {
@@ -54,7 +54,7 @@ export class ResetPasswordForm extends Component {
         <PopUp 
           show={resetPasswordError != null} 
           title={t('popUp.error.title')}
-          message={resetPasswordError && resetPasswordError.message}
+          message={translateErrorMessage(this.props.t, resetPasswordError)}
           onClose={dismissResetPasswordError}
         />
         

@@ -7,7 +7,7 @@ import {  withTranslation } from 'react-i18next';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { PasswordControlGroup, RedirectToNext } from '.';
 import { PopUp } from '../common';
-import { isFormValid } from './utils.js';
+import { isFormValid, translateErrorMessage } from './utils.js';
 
 export class ChangePasswordForm extends Component {
   static propTypes = {
@@ -55,7 +55,7 @@ export class ChangePasswordForm extends Component {
         <PopUp
           show={changePasswordError != null}
           title={t('popUp.error.title')}
-          message={changePasswordError && changePasswordError.message}
+          message={translateErrorMessage(this.props.t, changePasswordError)}
           onClose={dismissChangePasswordError}
         />
 

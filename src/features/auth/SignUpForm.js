@@ -7,7 +7,7 @@ import { withTranslation } from 'react-i18next';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { EmailControl, PasswordControlGroup } from '.';
 import { FakeLink, PopUp } from '../common';
-import { isFormValid } from './utils.js';
+import { isFormValid, translateErrorMessage } from './utils.js';
 
 export class SignUpForm extends Component {
   static propTypes = {
@@ -56,7 +56,7 @@ export class SignUpForm extends Component {
         <PopUp
           show={signUpError != null}
           title={t('popUp.error.title')}
-          message={signUpError && signUpError.message}
+          message={translateErrorMessage(this.props.t, signUpError)}
           onClose={dismissSignUpError} />
         <Form onSubmit={onSubmit}>
 

@@ -94,3 +94,23 @@ export function getNextURL(location) {
   const params = new URLSearchParams(location && location.search);
   return params.get(QUERY_PARAM_NEXT_URL);
 }
+
+const ERROR_CODES = [
+  {firebaseCode: 'auth/email-already-in-use', translationKey: 'emailAlreadyInUse'},
+  {firebaseCode: 'auth/invalid-email', translationKey: 'invalidEmail'},
+  {firebaseCode: 'auth/weak-password', translationKey: 'weakPassword'},
+  {firebaseCode: 'auth/user-disabled', translationKey: 'userDisabled'},
+  {firebaseCode: 'auth/user-not-found', translationKey: 'userNotFound'},
+  {firebaseCode: 'auth/wrong-password', translationKey: 'wrongPassword'},
+  {firebaseCode: 'auth/expired-action-code', translationKey: 'expiredActionCode'},
+  {firebaseCode: 'auth/invalid-action-code', translationKey: 'invalidActionCode'},
+]
+
+export function translateErrorMessage(t, error) {
+  if (error == null) {
+    return null
+  }
+  const foundMapping = error.code && (ERROR_CODES.find(element => element.firebaseCode === error.code))
+  const translationKey = 'auth:error.' + (foundMapping ? foundMapping.translationKey : 'default')
+  return (t && t(translationKey)) || error.message
+}

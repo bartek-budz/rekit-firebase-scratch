@@ -7,7 +7,7 @@ import { withTranslation } from 'react-i18next';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { EmailControl } from '.';
 import { PopUp } from '../common';
-import { isFormValid } from './utils.js';
+import { isFormValid, translateErrorMessage } from './utils.js';
 
 export class SignInForm extends Component {
   static propTypes = {
@@ -37,7 +37,7 @@ export class SignInForm extends Component {
 
     return (
       <div className="auth-sign-in-form">
-        <PopUp show={signInError != null} title={t('popUp.title')} message={signInError && signInError.message} onClose={dismissSignInError} />
+        <PopUp show={signInError != null} title={t('popUp.title')} message={translateErrorMessage(this.props.t, signInError)} onClose={dismissSignInError} />
         <Form onSubmit={onFormSubmit}>     
 
           <EmailControl controlId="email" disabled={locked} description={t('email.description')}/>

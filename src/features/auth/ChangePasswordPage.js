@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { AuthDialog, ChangePasswordForm, RedirectPreservingNext } from '.';
 import { PageLoader, PopUp } from '../common';
+import { translateErrorMessage } from './utils.js';
 
 export class ChangePasswordPage extends Component {
   static propTypes = {
@@ -39,7 +40,7 @@ export class ChangePasswordPage extends Component {
         <PopUp
           show={verifyResetError != null}
           title={t('auth:verifyReset.error.title')}
-          message={t('auth:verifyReset.error.message')}
+          message={translateErrorMessage(t, verifyResetError)}
           onClose={onDismissErrorPopUp}
         />
 

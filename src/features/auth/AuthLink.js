@@ -7,7 +7,7 @@ import { withTranslation } from 'react-i18next';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { RestrictedContent } from '.';
 import { FakeLink, PopUp } from '../common';
-import { linkWithNext } from './utils.js';
+import { linkWithNext, translateErrorMessage } from './utils.js';
 
 export class AuthLink extends Component {
   static propTypes = {
@@ -55,7 +55,7 @@ export class AuthLink extends Component {
         { isSignOutLink ?
         <div>
           { signOutSuccess && linkTarget && <Redirect to={linkTarget} />}
-          <PopUp show={signOutError != null} title={t('auth:signOut.popUp.title')} message={signOutError && signOutError.message} onClose={dismissSignOutError} />
+          <PopUp show={signOutError != null} title={t('auth:signOut.popUp.title')} message={translateErrorMessage(t, signOutError)} onClose={dismissSignOutError} />
           <RestrictedContent loader={loader} fallback={fallback}>
             { signOutPending ? pending : (<FakeLink onClick={onSignOutClick}>{linkText}</FakeLink>) }
           </RestrictedContent>          
