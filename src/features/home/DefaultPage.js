@@ -19,7 +19,7 @@ export class DefaultPage extends Component {
         <header className="app-header">
           <img src={reactLogo} className="app-logo" alt="logo" />
           <img src={rekitLogo} className="rekit-logo" alt="logo" />
-          <h1 className="app-title">Welcome to Firestarter!</h1>
+          <h1 className="app-title">Welcome to Rekit Firestarter!</h1>
         </header>
         <div className="app-intro">
           <p>Rekit Studio is running at: <a href="http://localhost:6076/" target="_blank" rel="noopener noreferrer">http://localhost:6076/</a>.</p>
