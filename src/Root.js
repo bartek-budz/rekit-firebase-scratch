@@ -1,11 +1,17 @@
 /* This is the Root component mainly initializes Redux and React Router. */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import { hot, setConfig } from 'react-hot-loader';
+import store from './common/store';
+import routeConfig from './common/routeConfig';
 import history from './common/history';
+
+setConfig({
+  logLevel: 'debug',
+});
 
 function renderRouteConfigV3(routes, contextPath) {
   // Resolve route config object in React Router v3.
@@ -26,10 +32,12 @@ function renderRouteConfigV3(routes, contextPath) {
           key={newContextPath}
           render={props => <item.component {...props}>{childRoutes}</item.component>}
           path={newContextPath}
-        />
+        />,
       );
     } else if (item.component) {
-      children.push(<Route key={newContextPath} component={item.component} path={newContextPath} exact />);
+      children.push(
+        <Route key={newContextPath} component={item.component} path={newContextPath} exact />,
+      );
     } else if (item.childRoutes) {
       item.childRoutes.forEach(r => renderRoute(r, newContextPath));
     }
@@ -41,17 +49,13 @@ function renderRouteConfigV3(routes, contextPath) {
   return <Switch>{children}</Switch>;
 }
 
-export default class Root extends React.Component {
-  static propTypes = {
-    store: PropTypes.object.isRequired,
-    routeConfig: PropTypes.array.isRequired,
-  };
-  render() {
-    const children = renderRouteConfigV3(this.props.routeConfig, '/');
-    return (
-      <Provider store={this.props.store}>
-        <ConnectedRouter history={history}>{children}</ConnectedRouter>
-      </Provider>
-    );
-  }
+function Root() {
+  const children = renderRouteConfigV3(routeConfig, '/');
+  return (
+    <Provider store={store}>
+      <ConnectedRouter history={history}>{children}</ConnectedRouter>
+    </Provider>
+  );
 }
+
+export default hot(module)(Root);

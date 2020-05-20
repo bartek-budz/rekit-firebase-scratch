@@ -19,7 +19,7 @@ export class LanguageButtonExample extends Component {
           <Alert.Heading>{ t('examples:languageButton.helloWorld') }</Alert.Heading>
           <p>
             <Trans ns="examples" i18nKey="languageButton.howTo">
-              Use <a href="https://www.i18next.com/overview/api#t">t</a> with <a href="https://react.i18next.com/latest/withtranslation-hoc">withTranslation</a>, or <a href="https://react.i18next.com/latest/trans-component">Trans</a>
+              Use <a href="https://www.i18next.com/overview/api#t">t</a> with <a href="https://react.i18next.com/latest/usetranslation-hook">useTranslation</a>, <a href="https://react.i18next.com/latest/withtranslation-hoc">withTranslation</a>, or <a href="https://react.i18next.com/latest/trans-component">Trans</a>
             </Trans>          
           </p>
           <hr />

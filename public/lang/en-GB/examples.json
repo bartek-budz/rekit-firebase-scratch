@@ -1,6 +1,6 @@
 {
   "languageButton": {
     "helloWorld": "Hello, world!",
-    "howTo": "To load translation, use the <1>t function</1> along with the <3>withTranslation HOC</3>, or simply the <5>Trans component</5>"
+    "howTo": "To load translation, use the <1>t function</1> along with the <3>useTranslation hook</3>, <5>withTranslation HOC</5>, or simply the <7>Trans component</7>"
   }
 }

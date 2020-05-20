@@ -1,25 +1,34 @@
 ## About
 
-The goal of this project is to deliver a "scratch" aka "boilerplate" aka "template" aka "starter kit" of a Progressive Web App based on [React](https://reactjs.org) with serverless backend powered by [Firebase](https://firebase.google.com), for those wanting to utilize these technologies along with [Rekit Studio](https://rekit.js.org) as IDE, to quickly prototype their ideas.
+The goal of this project is to deliver a "scratch" aka "boilerplate" aka "template" aka "starter kit" of a Progressive Web App based on [React](https://reactjs.org) framework with serverless backend powered by [Firebase](https://firebase.google.com), for those wanting to utilize these technologies along with [Rekit React feature oriented architecture](https://docs.rekit.org/app-types/rekit-react) and (Rekit Studio)[https://rekit.js.org] as IDE.
 
-The scratch in currently under development, aiming to provide at least the following features:
+### Features
 
-- Email & password authorization with Firebase purely as a backend (~80% done, to be implemented: e-mail verification)
-- User account management (ability to change e-mail, password etc.) - to be done
-- Multi-language support (powered by [i18next](https://www.i18next.com)) that interacts with Firebase - e.g. email to confirm password reset is sent in the language selected by the user in the app, then the language setting is propagated in the password reset link (done)
+- Email & password authentication with Firebase purely as a backend.
+- Internationalization that fully interacts with Firebase - e.g. email to confirm password reset is sent in the language selected by the user in the app, then the language setting is propagated in the password reset link (done)
 
+### To be done
+
+- Email verification after sign up
+- User account management (change email, drop account etc)
+- Basic database operations support
+
+### Dependencies (other than default Rekit React stack)
+- [Firebase](https://firebase.google.com) for authentication
+- [React Bootstrap](https://react-bootstrap.github.io) for UI (using [Less port of Bootstrap](https://www.npmjs.com/package/bootstrap-less-port)), enhanced with [React Router integration](https://github.com/react-bootstrap/react-router-bootstrap)
+- [i18next](https://www.i18next.com) for internationalization
 
 ## Getting started
 
 ### Prerequisites
- - install [npm](https://www.npmjs.com)
- - sign up to [Firebase Console](https://console.firebase.google.com)
- - install [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli)
+- install [npm](https://www.npmjs.com)
+- sign up to [Firebase Console](https://console.firebase.google.com)
+- install [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli)
+- install Rekit: ```npm install -g rekit rekit-studio```
 
-### Build the app
+### Set up the app
 - clone this repo
 - in the main project folder, execute `npm install` to download all the dependencies
-- then execute `npm run-script build` to build the project
 
 ### Set up Firebase
 - go to [Firebase Console](https://console.firebase.google.com)
@@ -61,3 +70,13 @@ REACT_APP_BASE_URL=https://YOUR-APP-ID.firebaseapp.com
 - enter `build` when asked for a public directory
 - enter `Y` when asked whether to configure as single-page app
 - for other options use defaults
+
+### Run it
+
+- ```rekit-studio``` or ```rekit-studio -p (PORT NUMBER)``` to launch Rekit Studio
+- ```npm start``` to launch the app locally
+
+### Deploy to Firebase Hosting
+
+1. `npm run-script build` to build the app
+2. ```firebase deploy``` to deploy it

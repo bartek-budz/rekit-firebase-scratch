@@ -7,7 +7,7 @@ describe('examples/redux/reducer', () => {
       prevState,
       { type: '__UNKNOWN_ACTION_TYPE__' }
     );
-    expect(state).toBe(prevState);
+    expect(state).toEqual(prevState);
   });
 
   // TODO: add global reducer test if needed.
