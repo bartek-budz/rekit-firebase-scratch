@@ -1,4 +1,6 @@
-## About
+**Demo**: https://rekit-react-firebase.firebaseapp.com
+
+# About
 
 The goal of this project is to deliver a "scratch" aka "boilerplate" aka "template" aka "starter kit" of a Progressive Web App based on [React](https://reactjs.org) framework with serverless backend powered by [Firebase](https://firebase.google.com), for those wanting to utilize these technologies along with [Rekit React feature oriented architecture](https://docs.rekit.org/app-types/rekit-react) and [Rekit Studio](https://rekit.js.org) as IDE.
 
@@ -18,7 +20,7 @@ The goal of this project is to deliver a "scratch" aka "boilerplate" aka "templa
 - [React Bootstrap](https://react-bootstrap.github.io) for UI (using [Less port of Bootstrap](https://www.npmjs.com/package/bootstrap-less-port)), enhanced with [React Router integration](https://github.com/react-bootstrap/react-router-bootstrap)
 - [i18next](https://www.i18next.com) for internationalization
 
-## Getting started
+# Getting started
 
 ### Prerequisites
 - install [npm](https://www.npmjs.com)
@@ -81,11 +83,11 @@ REACT_APP_BASE_URL=https://YOUR-APP-ID.firebaseapp.com
 1. `npm run-script build` to build the app
 2. ```firebase deploy``` to deploy it
 
-## Custom components
+# Components
 
-### Authentication
+## Authentication
 
-#### RestrictedContent
+### RestrictedContent
 
 Displays its content only to authenticated users
 
@@ -95,7 +97,7 @@ Displays its content only to authenticated users
 </RestrictedContent>
 ````
 
-##### API
+#### API
 
 ````
 import RestrictedContent from '../auth';
@@ -106,7 +108,7 @@ import RestrictedContent from '../auth';
 | loader   | node |         | Rendered while Firebase Auth is being initialized |
 | fallback | node |         | Rendered when user is not signed in               |
 
-#### RestrictedPage
+### RestrictedPage
 
 Replaces its content with authentication dialogs for unauthenticated users. 
 Wraps RestrictedContent, rendering the authentication dialogs as fallback.
@@ -117,7 +119,7 @@ Wraps RestrictedContent, rendering the authentication dialogs as fallback.
 </RestrictedPage>
 ````
 
-##### API
+#### API
 
 ````
 import RestrictedPage from '../auth';
@@ -127,7 +129,7 @@ import RestrictedPage from '../auth';
 | -------- | ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
 | loader   | node | PageLoader, a custom component from the commons feature, that renders [Spinner](https://react-bootstrap.github.io/components/spinners) on the page center. | Rendered while Firebase Auth is being initialized |
 
-#### AuthLink
+### AuthLink
 
 Ensures that user is signed in (or out) before redirecting to the target path.
 Based on the [React Router Link](https://reacttraining.com/react-router/web/api/Link).
@@ -146,7 +148,7 @@ AuthLink works well as a support for RestrictedContent:
 </RestrictedContent>    
 ````
 
-##### API
+#### API
 
 ````
 import AuthLink from '../auth';
@@ -160,9 +162,9 @@ import AuthLink from '../auth';
 | fallback | node   | plain link text  | Rendered when user is already signed in (in the sign out mode: when user is already signed out) |
 | pending  | node   | plain link text  | Only in the sign out mode - rendered while sign out action is pending                           |
 
-### Internationalization
+## Internationalization
 
-#### LanguageButton 
+### LanguageButton 
 
 [Dropdown button](https://react-bootstrap.github.io/components/dropdowns) that allows for dynamic change of the app language. Displays [flags](https://www.npmjs.com/package/react-world-flags) related to the loaded languages.
 
@@ -172,7 +174,7 @@ import AuthLink from '../auth';
 
 For the time being, the language configuration (such as language code / flag mapping) is in the [src/common/i18n.js](src/common/i18n.js) file.
 
-##### API
+#### API
 
 ````
 import LanguageButton from '../common';
