@@ -15,6 +15,7 @@ export class RestrictedPage extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    loader: PropTypes.node,
     children: PropTypes.node,    
   };
 
@@ -89,7 +90,7 @@ export class RestrictedPage extends Component {
 
     return (
       <div className="auth-restricted-page">
-        <RestrictedContent loader={<PageLoader />} fallback={renderAuthDialog()}>
+        <RestrictedContent loader={this.props.loader || <PageLoader />} fallback={renderAuthDialog()}>
           {this.props.children}
         </RestrictedContent>
       </div>      
