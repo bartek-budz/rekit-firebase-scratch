@@ -1,6 +1,6 @@
-import reducer from '../../../../src/features/examples/redux/reducer';
+import reducer from '../../../../src/features/demo/redux/reducer';
 
-describe('examples/redux/reducer', () => {
+describe('demo/redux/reducer', () => {
   it('does nothing if no matched action', () => {
     const prevState = {};
     const state = reducer(

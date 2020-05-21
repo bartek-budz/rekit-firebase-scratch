@@ -3,7 +3,7 @@ import { PageNotFound } from '../features/common';
 import homeRoute from '../features/home/route';
 import commonRoute from '../features/common/route';
 import authRoute from '../features/auth/route';
-import examplesRoute from '../features/examples/route';
+import demoRoute from '../features/demo/route';
 import _ from 'lodash';
 
 // NOTE: DO NOT CHANGE the 'childRoutes' name and the declaration pattern.
@@ -12,7 +12,7 @@ const childRoutes = [
   homeRoute,
   commonRoute,
   authRoute,
-  examplesRoute,
+  demoRoute,
 ];
 
 const routes = [{

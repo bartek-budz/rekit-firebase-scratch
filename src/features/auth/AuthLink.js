@@ -38,7 +38,7 @@ export class AuthLink extends Component {
     const fallback = this.props.fallback || linkText
     const pending = this.props.pending || linkText    
 
-    const currentLocation = this.props.location.pathname 
+    const currentLocation = this.props.location.pathname
     const nextAfterSignIn = linkTarget || currentLocation
 
     const onSignOutClick = event => {

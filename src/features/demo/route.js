@@ -11,7 +11,7 @@ import {
 } from './';
 
 export default {
-  path: 'examples',
+  path: 'demo',
   childRoutes: [
     { path: '', name: 'Examples', component: ExamplesIndex, isIndex: true },
     { path: 'restricted-page', name: 'Restricted Page example', component: RestrictedPageExample },

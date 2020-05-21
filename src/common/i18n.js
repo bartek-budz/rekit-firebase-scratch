@@ -6,7 +6,7 @@ import { getQueryParameter } from './env.js';
 
 const DEFAULT_LANGUAGE_CODE = 'en-GB'
 
-export const TRANSLATION_NAMESPACES = ['auth', 'examples', 'common']
+export const TRANSLATION_NAMESPACES = ['common', 'auth', 'demo']
 
 // todo: move this config to json etc.
 export const AVAILABLE_LANGUAGES = [

@@ -7,13 +7,13 @@ import { ExamplesList, ExamplesNavigation } from '.';
 
 export class ExamplesIndex extends Component {
   static propTypes = {
-    examples: PropTypes.object.isRequired,
+    demo: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
 
   render() {
     return (
-      <div className="examples-examples-index">
+      <div className="demo-examples-index">
         <ExamplesNavigation />
         <ExamplesList />
       </div>
@@ -24,7 +24,7 @@ export class ExamplesIndex extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
-    examples: state.examples,
+    demo: state.demo,
   };
 }
 

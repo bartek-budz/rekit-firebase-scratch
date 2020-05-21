@@ -10,7 +10,7 @@ export default class AuthLinkTarget extends Component {
 
   render() {
     return (
-      <div className="examples-auth-link-target">
+      <div className="demo-auth-link-target">
         <ExamplesNavigation active="AuthLink"/>
         <Alert variant="success">
           <Alert.Heading>AuthLink</Alert.Heading>

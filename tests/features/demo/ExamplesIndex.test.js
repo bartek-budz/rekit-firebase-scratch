@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ExamplesIndex } from '../../../src/features/examples/ExamplesIndex';
+import { ExamplesIndex } from '../../../src/features/demo/ExamplesIndex';
 
-describe('examples/ExamplesIndex', () => {
+describe('demo/ExamplesIndex', () => {
   it('renders node with correct class name', () => {
     const props = {
-      examples: {},
+      demo: {},
       actions: {},
     };
     const renderedComponent = shallow(
@@ -13,7 +13,7 @@ describe('examples/ExamplesIndex', () => {
     );
 
     expect(
-      renderedComponent.find('.examples-examples-index').length
+      renderedComponent.find('.demo-examples-index').length
     ).toBe(1);
   });
 });

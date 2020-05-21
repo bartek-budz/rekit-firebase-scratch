@@ -10,17 +10,17 @@ export default class ExamplesNavigation extends Component {
 
   render() {
     return (
-      <div className="examples-examples-navigation">
+      <div className="demo-examples-navigation">
         <Breadcrumb>
           <LinkContainer to="/" exact>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
           </LinkContainer>      
           {this.props.active ?
-          <LinkContainer to="/examples" exact>
-            <Breadcrumb.Item active={this.props.active == null}>Examples</Breadcrumb.Item>
+          <LinkContainer to="/demo" exact>
+            <Breadcrumb.Item active={this.props.active == null}>Demo</Breadcrumb.Item>
           </LinkContainer>
           :
-          <Breadcrumb.Item active>Examples</Breadcrumb.Item>
+          <Breadcrumb.Item active>Demo</Breadcrumb.Item>
           }          
           {this.props.active &&
           <Breadcrumb.Item active>{this.props.active}</Breadcrumb.Item>

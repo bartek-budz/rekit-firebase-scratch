@@ -13,12 +13,12 @@ export class LanguageButtonExample extends Component {
     const { t }  = this.props
 
     return (
-      <div className="examples-language-button-example">
+      <div className="demo-language-button-example">
         <ExamplesNavigation active="LanguageButton"/>
         <Alert variant="info">
-          <Alert.Heading>{ t('examples:languageButton.helloWorld') }</Alert.Heading>
+          <Alert.Heading>{ t('demo:languageButton.helloWorld') }</Alert.Heading>
           <p>
-            <Trans ns="examples" i18nKey="languageButton.howTo">
+            <Trans ns="demo" i18nKey="languageButton.howTo">
               Use <a href="https://www.i18next.com/overview/api#t">t</a> with <a href="https://react.i18next.com/latest/usetranslation-hook">useTranslation</a>, <a href="https://react.i18next.com/latest/withtranslation-hoc">withTranslation</a>, or <a href="https://react.i18next.com/latest/trans-component">Trans</a>
             </Trans>          
           </p>

@@ -9,7 +9,7 @@ export default class RestrictedPageExample extends Component {
 
   render() {
     return (
-      <div className="examples-restricted-page-example">
+      <div className="demo-restricted-page-example">
         <ExamplesNavigation active="RestrictedPage"/>
         <RestrictedPage>
           <Alert variant="success">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExamplesList } from '../examples';
+import { ExamplesList } from '../demo';
 
 export default function WelcomePage() {
   return (

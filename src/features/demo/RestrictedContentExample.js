@@ -10,7 +10,7 @@ export default class RestrictedContentExample extends Component {
 
   render() {
     return (
-      <div className="examples-restricted-content-example">
+      <div className="demo-restricted-content-example">
         <ExamplesNavigation active="RestrictedContent"/>
         <Alert variant="warning">
           <Alert.Heading>Hello guest!</Alert.Heading>
