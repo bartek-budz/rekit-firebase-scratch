@@ -1,0 +1,7 @@
+export const MIN_PASSWORD_LENGTH = 6
+export const MAX_PASSWORD_LENGTH = 20
+export const PASSWORD_REQUIRE_NUMERIC_DIGIT = true
+export const PASSWORD_REQUIRE_LOWERCASE = true
+export const PASSWORD_REQUIRE_UPPERCASE = true
+export const PASSWORD_REQUIRE_SPECIAL_CHARS = true
+export const REQUIRE_EMAIL_VERIFICATION = true

@@ -56,12 +56,12 @@ export class AuthLink extends Component {
         <div>
           { signOutSuccess && linkTarget && <Redirect to={linkTarget} />}
           <PopUp show={signOutError != null} title={t('auth:signOut.popUp.title')} message={translateErrorMessage(t, signOutError)} onClose={dismissSignOutError} />
-          <RestrictedContent loader={loader} fallback={fallback}>
+          <RestrictedContent allowUnverified loader={loader} fallback={fallback}>
             { signOutPending ? pending : (<FakeLink onClick={onSignOutClick}>{linkText}</FakeLink>) }
           </RestrictedContent>          
         </div>
         :               
-        <RestrictedContent loader={loader} fallback={<Link to={linkWithNext("/auth/sign-in", nextAfterSignIn)}>{linkText}</Link>}>
+        <RestrictedContent allowUnverified loader={loader} fallback={<Link to={linkWithNext("/auth/sign-in", nextAfterSignIn)}>{linkText}</Link>}>
           { linkTarget ? <Link to={linkTarget}>{linkText}</Link> : linkText}          
         </RestrictedContent>
         }

@@ -8,12 +8,16 @@ export class FakeLink extends Component {
     children: PropTypes.node,    
   };
 
-  render() {    
+  render() {   
     const fakeLink = this.props.location && this.props.location.pathname
     const {children, onClick} = this.props
+    const onFakeLinkClick = event => {
+      event.preventDefault()
+      onClick()
+    }
     return (
       <div className="common-fake-link">
-        <a href={fakeLink} onClick={onClick}>{children}</a>        
+        <a href={fakeLink} onClick={onFakeLinkClick}>{children}</a>        
       </div>
     );
   }

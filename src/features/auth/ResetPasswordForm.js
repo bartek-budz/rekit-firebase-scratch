@@ -14,6 +14,7 @@ export class ResetPasswordForm extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    nextIsCurrent: PropTypes.bool
   };
 
   state = {
@@ -25,7 +26,7 @@ export class ResetPasswordForm extends Component {
     const {resetPasswordPending, resetPasswordError, resetPasswordSuccess} = this.props.auth
     const {resetPassword, dismissResetPasswordError, setState} = this.props.actions        
     const {redirectTo} = this.state
-    const nextURL = getNextURL(this.props.location)
+    const nextURL = getNextURL(this.props.location, this.props.nextIsCurrent === true) 
 
     const onFormSubmit = (event) => {
       event.preventDefault();

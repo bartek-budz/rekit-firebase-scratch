@@ -4,7 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { Trans, withTranslation } from 'react-i18next';
-import { AuthDialog, SignInForm, SignUpForm, ResetPasswordForm, RestrictedContent } from '.';
+import { isUserAuthorized } from './utils.js';
+import { Alert } from 'react-bootstrap';
+import { AuthDialog, SignInForm, SignOutButton, SignUpForm, ResetPasswordForm, RestrictedContent } from '.';
 import { FakeLink, PageLoader } from '../common';
 
 const SCREEN_SIGN_IN = 'singIn'
@@ -16,7 +18,8 @@ export class RestrictedPage extends Component {
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
     loader: PropTypes.node,
-    children: PropTypes.node,    
+    children: PropTypes.node,
+    allowUnverified: PropTypes.bool,
   };
 
   state = {
@@ -26,16 +29,16 @@ export class RestrictedPage extends Component {
   render() {
     const localState = this.state
     const globalState = this.props.auth
-    const userData = globalState.userData
-    const signedIn = userData != null
-    const currentScreen = signedIn ? null : localState.currentScreen
+    const {userData, signUpVerificationRequested} = globalState
+    const allowUnverified = this.props.allowUnverified === true
+    const unverified = userData && !isUserAuthorized(userData, allowUnverified)
+    const currentScreen = unverified ? null : localState.currentScreen
 
-    const switchScreen = screenId => event => {
-      event.preventDefault()
+    const switchScreen = screenId => event => {      
       this.setState({currentScreen: screenId})
     }
 
-    const t = key => this.props.t('auth:'.concat(key))    
+    const t = (key, args) => this.props.t('auth:'.concat(key), args)    
 
     const renderAuthDialog = () => {
       switch (currentScreen) {
@@ -58,7 +61,7 @@ export class RestrictedPage extends Component {
           );
         case SCREEN_SING_UP:
           return (
-            <AuthDialog title={t('signUp.title')} form={<SignUpForm />} links={
+            <AuthDialog title={t('signUp.title')} form={<SignUpForm nextIsCurrent/>} links={
               <p>
                 <Trans ns="auth" i18nKey="signUp.links.signIn">
                   Registered? <FakeLink onClick={switchScreen(SCREEN_SIGN_IN)}>Sign in</FakeLink>
@@ -68,7 +71,7 @@ export class RestrictedPage extends Component {
           );
         case SCREEN_RESET_PASSWORD:
           return (
-            <AuthDialog title={t('resetPassword.title')} form={<ResetPasswordForm />} links={
+            <AuthDialog title={t('resetPassword.title')} form={<ResetPasswordForm nextIsCurrent/>} links={
               <div>
                 <p>
                   <Trans ns="auth" i18nKey="resetPassword.links.signIn">
@@ -84,13 +87,20 @@ export class RestrictedPage extends Component {
             }/>
           );
         default:
-          return null;
+          return (
+            <Alert variant="warning">
+              <Alert.Heading>{t('verificationRequired.title')}</Alert.Heading>
+              <p>{t('verificationRequired.message', {email: userData && userData.email})}</p>
+              <hr />
+              <SignOutButton variant="outline-warning" />              
+            </Alert>
+          );          
       }
     }
 
     return (
       <div className="auth-restricted-page">
-        <RestrictedContent loader={this.props.loader || <PageLoader />} fallback={renderAuthDialog()}>
+        <RestrictedContent allowUnverified={allowUnverified && !signUpVerificationRequested} loader={this.props.loader || <PageLoader />} fallback={renderAuthDialog()}>
           {this.props.children}
         </RestrictedContent>
       </div>      

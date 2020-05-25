@@ -18,3 +18,4 @@ export { default as EmailActionHandlerPage } from './EmailActionHandlerPage';
 export { default as ChangePasswordPage } from './ChangePasswordPage';
 export { default as RedirectPreservingNext } from './RedirectPreservingNext';
 export { default as LinkPreservingNext } from './LinkPreservingNext';
+export { default as VerifyEmailPage } from './VerifyEmailPage';

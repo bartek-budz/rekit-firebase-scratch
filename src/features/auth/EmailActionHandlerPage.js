@@ -33,8 +33,13 @@ export class EmailActionHandlerPage extends Component {
                         search: `?${QUERY_PARAM_LANG}=${languageCode}&code=${oobCode}${optionalNextUrlQuery}`,
                         state: {}
                       }}/>;
-            case 'recoverEmail':
             case 'verifyEmail':
+              return <Redirect to={{
+                        pathname: "/auth/verify-email",
+                        search: `?${QUERY_PARAM_LANG}=${languageCode}&code=${oobCode}${optionalNextUrlQuery}`,
+                        state: {}
+                      }}/>;                      
+            case 'recoverEmail':          
             default:
               return <PageNotFound />;
           }

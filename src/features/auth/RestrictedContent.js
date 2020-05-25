@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import { isUserAuthorized } from './utils.js';
 import { AuthSuspense } from '.';
 
 export class RestrictedContent extends Component {
@@ -10,16 +11,19 @@ export class RestrictedContent extends Component {
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
     loader: PropTypes.node,
-    fallback: PropTypes.node,
-    children: PropTypes.node,    
+    fallback: PropTypes.node,    
+    children: PropTypes.node,
+    allowUnverified: PropTypes.bool,
   };
 
-  render() {
-    const signedIn = this.props.auth.userData != null
+  render() {    
+    const {loader, fallback, children} = this.props
+    const allowUnverified = this.props.allowUnverified === true
+    const {userData} = this.props.auth
     return (
       <div className="auth-restricted-content">
-        <AuthSuspense fallback={this.props.loader}>
-          {signedIn ? this.props.children : this.props.fallback}
+        <AuthSuspense fallback={loader}>
+          {isUserAuthorized(userData, allowUnverified) ? children : fallback}
         </AuthSuspense>
       </div>
     );

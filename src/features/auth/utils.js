@@ -1,15 +1,19 @@
+import { APP_BASE_URL } from '../../common/env.js';
+import {
+  MIN_PASSWORD_LENGTH,
+  MAX_PASSWORD_LENGTH,
+  PASSWORD_REQUIRE_NUMERIC_DIGIT,
+  PASSWORD_REQUIRE_LOWERCASE,
+  PASSWORD_REQUIRE_UPPERCASE,
+  PASSWORD_REQUIRE_SPECIAL_CHARS,
+  REQUIRE_EMAIL_VERIFICATION
+} from './config.js';
+
 const REGEX_EMAIL = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 
 export function isValidEmail(value) {
  return REGEX_EMAIL.test(value)
 }
-
-const MIN_PASSWORD_LENGTH = 6
-const MAX_PASSWORD_LENGTH = 20
-const PASSWORD_REQUIRE_NUMERIC_DIGIT = true
-const PASSWORD_REQUIRE_LOWERCASE = true
-const PASSWORD_REQUIRE_UPPERCASE = true
-const PASSWORD_REQUIRE_SPECIAL_CHARS = true
 
 const REGEX_SPECIAL_CHARS = /[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/
 
@@ -90,9 +94,10 @@ export function linkWithNext(path, nextURL) {
   return nextURL ? `${path}?${QUERY_PARAM_NEXT_URL}=${encodeURIComponent(nextURL)}` : path
 }
 
-export function getNextURL(location) {
-  const params = new URLSearchParams(location && location.search);
-  return params.get(QUERY_PARAM_NEXT_URL);
+export function getNextURL(location, nextIsCurrent) {
+  return nextIsCurrent
+    ? location && location.pathname
+    : new URLSearchParams(location && location.search).get(QUERY_PARAM_NEXT_URL)
 }
 
 const ERROR_CODES = [
@@ -113,4 +118,12 @@ export function translateErrorMessage(t, error) {
   const foundMapping = error.code && (ERROR_CODES.find(element => element.firebaseCode === error.code))
   const translationKey = 'auth:error.' + (foundMapping ? foundMapping.translationKey : 'default')
   return (t && t(translationKey)) || error.message
+}
+
+export function buildActionCodeSettings(nextURL) {
+  return nextURL ? {url: APP_BASE_URL + nextURL} : null
+}
+
+export function isUserAuthorized(userData, allowUnverified = false) {
+  return userData && (!REQUIRE_EMAIL_VERIFICATION || allowUnverified === true || userData.emailVerified)  
 }

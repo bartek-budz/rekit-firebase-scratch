@@ -10,7 +10,7 @@ export class SignInPage extends Component {
     const t = key => this.props.t('auth:signIn.'.concat(key))
     return (
       <div className="auth-sign-in-page">
-        <RestrictedContent fallback={
+        <RestrictedContent allowUnverified fallback={
           <AuthDialog title={t('title')} form={<SignInForm />} links={
             <div>
               <p>

@@ -1,4 +1,4 @@
-**Demo**: https://rekit-react-firebase.firebaseapp.com
+**Demo**: https://rekit-react-firebase.web.app
 
 # About
 
@@ -6,14 +6,20 @@ The goal of this project is to deliver a "scratch" aka "boilerplate" aka "templa
 
 ### Features
 
-- Email & password authentication with Firebase purely as a backend.
+- Email & password authentication with Firebase purely as a backend (sign up/in/out, password reset, email verification)
 - Internationalization that fully interacts with Firebase - e.g. email to confirm password reset is sent in the language selected by the user in the app, then the language setting is propagated in the password reset link (done)
 
 ### To be done
 
-- Email verification after sign up
-- User account management (change email, drop account etc)
-- Basic database operations support
+- Authentication:
+-- User's ability to define displayed name
+-- User's ability to change password
+-- User's ability to change e-mail address
+-- User's ability to drop account
+-- User roles granted by admin user
+- Next Firebase products
+-- Basic database operations support
+-- Basic cloud functions support
 
 ### Dependencies (other than default Rekit React stack)
 - [Firebase](https://firebase.google.com) for authentication
@@ -75,12 +81,12 @@ REACT_APP_BASE_URL=https://YOUR-APP-ID.firebaseapp.com
 
 ### Run it
 
-- ```rekit-studio``` or ```rekit-studio -p (PORT NUMBER)``` to launch Rekit Studio
 - ```npm start``` to launch the app locally
+- ```rekit-studio``` or ```rekit-studio -p (PORT NUMBER)``` to launch Rekit Studio
 
 ### Deploy to Firebase Hosting
 
-1. `npm run-script build` to build the app
+1. `npm run build` to build the app
 2. ```firebase deploy``` to deploy it
 
 # Components
@@ -103,10 +109,11 @@ Displays its content only to authenticated users
 import RestrictedContent from '../auth';
 ````
 
-| Name     | Type | Default | Description                                       |
-| -------- | ---- | ------- | ------------------------------------------------- |
-| loader   | node |         | Rendered while Firebase Auth is being initialized |
-| fallback | node |         | Rendered when user is not signed in               |
+| Name            | Type | Default | Description                                                                   |
+| --------------- | ---- | ------- | ----------------------------------------------------------------------------- |
+| loader          | node |         | Rendered while Firebase Auth is being initialized                             |
+| fallback        | node |         | Rendered when user is not signed in                                           |
+| allowUnverified | bool | false   | Add this flag (or set it to true) to let in users with not yet verified email |
 
 ### RestrictedPage
 
@@ -125,9 +132,10 @@ Wraps RestrictedContent, rendering the authentication dialogs as fallback.
 import RestrictedPage from '../auth';
 ````
 
-| Name     | Type | Default                                                                                                                                                    | Description                                       |
-| -------- | ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| loader   | node | PageLoader, a custom component from the commons feature, that renders [Spinner](https://react-bootstrap.github.io/components/spinners) on the page center. | Rendered while Firebase Auth is being initialized |
+| Name            | Type | Default                                                                                           | Description                                                                   |
+| --------------- | ---- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| loader          | node | [Spinner](https://react-bootstrap.github.io/components/spinners) on the center of the page / area | Rendered while Firebase Auth is being initialized                             |
+| allowUnverified | bool | false                                                                                             | Add this flag (or set it to true) to let in users with not yet verified email |
 
 ### AuthLink
 
@@ -161,6 +169,24 @@ import AuthLink from '../auth';
 | loader   | node   | plain link text  | Rendered while Firebase Auth is being initialized                                               |
 | fallback | node   | plain link text  | Rendered when user is already signed in (in the sign out mode: when user is already signed out) |
 | pending  | node   | plain link text  | Only in the sign out mode - rendered while sign out action is pending                           |
+
+### SignOutButton 
+
+Button that simply signs the user out, rendering spinner while the action is pending. The caption is rendered by default in the user's language.
+
+````
+<SignOutButton />
+````
+
+#### API
+
+````
+import SignOutButton from '../auth';
+````
+
+| Name     | Type   | Default | Description                                                                              |
+| -------- | ------ | ------- | ---------------------------------------------------------------------------------------- |
+| variant  | string | primary | [React Bootstrap Button's](https://react-bootstrap.github.io/components/buttons) variant |
 
 ## Internationalization
 

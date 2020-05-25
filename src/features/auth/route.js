@@ -1,6 +1,13 @@
 // http://rekit.js.org/docs/routing.html
 
-import { SignInPage, SignUpPage, ResetPasswordPage, EmailActionHandlerPage, ChangePasswordPage } from './';
+import {
+  SignInPage,
+  SignUpPage,
+  ResetPasswordPage,
+  EmailActionHandlerPage,
+  ChangePasswordPage,
+  VerifyEmailPage,
+} from './';
 
 export default {
   path: 'auth',
@@ -11,5 +18,6 @@ export default {
     { path: 'reset-password', name: 'Reset password', component: ResetPasswordPage },
     { path: 'action', name: 'Email action handler', component: EmailActionHandlerPage },
     { path: 'change-password', name: 'Change password', component: ChangePasswordPage },
+    { path: 'verify-email', component: VerifyEmailPage },
   ],
 };

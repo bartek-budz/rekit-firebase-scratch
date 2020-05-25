@@ -4,8 +4,8 @@ import {
   AUTH_RESET_PASSWORD_FAILURE,
   AUTH_RESET_PASSWORD_DISMISS_ERROR,
 } from './constants';
-import { APP_BASE_URL } from '../../../common/env.js';
 import { Firebase } from '../../../common/firebase.js';
+import { buildActionCodeSettings } from '../utils.js';
 import { getCurrentLanguageConfig } from '../../../common/i18n';
 
 export function resetPassword(email, nextURL) {
@@ -14,12 +14,10 @@ export function resetPassword(email, nextURL) {
       type: AUTH_RESET_PASSWORD_BEGIN,
     });
     
-    const actionCodeSettings = nextURL ? {url: APP_BASE_URL + nextURL} : null
-
     return new Promise((resolve, reject) => {      
       const auth = Firebase.auth()
       auth.languageCode = getCurrentLanguageConfig().firebaseCode
-      auth.sendPasswordResetEmail(email, actionCodeSettings).then(
+      auth.sendPasswordResetEmail(email, buildActionCodeSettings(nextURL)).then(
         (res) => {
           dispatch({
             type: AUTH_RESET_PASSWORD_SUCCESS,

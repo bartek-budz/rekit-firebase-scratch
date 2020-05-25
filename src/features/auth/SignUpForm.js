@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { EmailControl, PasswordControlGroup } from '.';
 import { FakeLink, PopUp } from '../common';
-import { isFormValid, translateErrorMessage } from './utils.js';
+import { getNextURL, isFormValid, translateErrorMessage } from './utils.js';
 
 export class SignUpForm extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    allowUnverified: PropTypes.bool,
+    nextIsCurrent: PropTypes.bool
   };
 
   state = {    
@@ -21,9 +24,10 @@ export class SignUpForm extends Component {
   }
 
   render() {     
-    const {email, signUpPending, signUpError} = this.props.auth
+    const nextURL = getNextURL(this.props.location, this.props.nextIsCurrent === true) 
+    const {email, signUpPending, signUpError, signUpVerificationRequested} = this.props.auth
     const {showTermsAndConditions} = this.state
-    const {signUp, dismissSignUpError} = this.props.actions
+    const {signUp, dismissSignUpError, dismissSignUpVerificationRequested} = this.props.actions
     const locked = signUpPending    
 
     const onShowTermsAndConditions = (event) => {
@@ -36,14 +40,14 @@ export class SignUpForm extends Component {
       const form = event.currentTarget
       if (isFormValid(form)) {
         const password = form.password.value            
-        signUp(email, password)
+        signUp(email, password, nextURL)
       }
       else {
         event.stopPropagation();   
       } 
-    };    
+    };
 
-    const t = key => this.props.t('auth:signUp.'.concat(key))
+    const t = (key, args) => this.props.t('auth:signUp.'.concat(key), args)
 
     return (
       <div className="auth-sign-up-form">
@@ -53,11 +57,21 @@ export class SignUpForm extends Component {
           message={t('popUp.termsAndConditions.message')}
           onClose={() => this.setState({showTermsAndConditions: false})}
         />  
+
         <PopUp
           show={signUpError != null}
           title={t('popUp.error.title')}
           message={translateErrorMessage(this.props.t, signUpError)}
-          onClose={dismissSignUpError} />
+          onClose={dismissSignUpError}
+        />
+
+        <PopUp
+          show={signUpVerificationRequested}
+          title={t('popUp.verificationRequested.title')}
+          message={t('popUp.verificationRequested.message', {email})}
+          onClose={dismissSignUpVerificationRequested}
+        />   
+
         <Form onSubmit={onSubmit}>
 
           <EmailControl controlId="email" disabled={locked}/>
@@ -113,4 +127,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withTranslation()(SignUpForm));
+)(withTranslation()((withRouter(props => <SignUpForm {...props}/>))));

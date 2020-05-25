@@ -15,8 +15,11 @@ export default class RestrictedContentExample extends Component {
         <Alert variant="warning">
           <Alert.Heading>Hello guest!</Alert.Heading>
           <p>This you can see without authorization, but if you <AuthLink>sign in</AuthLink>, I can show you something more.</p>
-          <RestrictedContent fallback={<p><AuthLink>Sign in</AuthLink> to see the paragraph</p>}>
+          <RestrictedContent allowUnverified fallback={<p><AuthLink>Sign in</AuthLink> to see the paragraph</p>}>
             <p>I see you are signed in, good job!</p>
+            <RestrictedContent fallback={<p>However, if you verify your email, I can show you even more...</p>}>
+              <p>You even verified your email, awesome!</p>
+            </RestrictedContent>            
             <hr />
             <SignOutButton variant="outline-warning" />   
           </RestrictedContent>

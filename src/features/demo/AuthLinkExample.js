@@ -19,7 +19,7 @@ export default class AuthLinkExample extends Component {
           <p><AuthLink signOut>AuthLink with signOut property</AuthLink> is active when you are signed in, and it signs you out without changing location.</p>
           <p><AuthLink signOut  to="/demo/auth-link-target">AuthLink with signOut property and target</AuthLink> redirects you to the target location after successful sign out.</p>
           <hr />
-          <RestrictedContent fallback={<p>You are signed out. <AuthLink>Sign in</AuthLink> to test how the links work for authenticated users.</p>}>
+          <RestrictedContent allowUnverified fallback={<p>You are signed out. <AuthLink>Sign in</AuthLink> to test how the links work for authenticated users.</p>}>
             <p>You are signed in. <AuthLink signOut>Sign out</AuthLink> to test how the links work for unaunthenticated users.</p>
           </RestrictedContent>                 
         </Alert>

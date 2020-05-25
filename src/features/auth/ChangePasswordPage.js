@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -10,7 +11,9 @@ import { translateErrorMessage } from './utils.js';
 
 export class ChangePasswordPage extends Component {
   static propTypes = {
-  };
+    auth: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
+  }
 
   state = {
     code: new URLSearchParams(this.props.location.search).get('code'),
@@ -32,6 +35,7 @@ export class ChangePasswordPage extends Component {
     }      
 
     const t = this.props.t
+    
     return (
       <div className="auth-change-password-page">
 
