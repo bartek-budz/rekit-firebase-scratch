@@ -41,8 +41,7 @@ export class AuthLink extends Component {
     const currentLocation = this.props.location.pathname
     const nextAfterSignIn = linkTarget || currentLocation
 
-    const onSignOutClick = event => {
-      event.preventDefault()
+    const onSignOutClick = () => {
       this.setState({signOutInitialized: true})
       signOut()
     }
