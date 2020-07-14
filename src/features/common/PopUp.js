@@ -6,7 +6,7 @@ export default class PopUp extends Component {
   static propTypes = {
     show: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,    
+    message: PropTypes.string,
     onClose: PropTypes.func.isRequired,
     button: PropTypes.string
   };

@@ -19,7 +19,7 @@ export class LanguageButton extends Component {
     const currentLangConfig = this.props.common.langConfig
     const currentLangFlagCode = currentLangConfig.flagCode
     const options = AVAILABLE_LANGUAGES.map((config) =>
-      <Dropdown.Item eventKey={config.languageCode} active={currentLangConfig.languageCode === config.languageCode}><Flag width="20" code={config.flagCode} /> {config.name}</Dropdown.Item>
+      <Dropdown.Item key={config.languageCode} eventKey={config.languageCode} active={currentLangConfig.languageCode === config.languageCode}><Flag width="20" code={config.flagCode} /> {config.name}</Dropdown.Item>
     );
     const onLanguageSelect = event => {      
       this.props.actions.changeLanguage(event)
